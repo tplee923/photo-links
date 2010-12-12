@@ -195,6 +195,7 @@
 			
 			zoomFull.addChild(zoom2);
 			zoomFull.addChild(move);
+			horizontalList.visible = false;
 
 			this.isZoomed = false;
 			this.addEventListener(MouseEvent.CLICK,ui2.mouseClickOn);
