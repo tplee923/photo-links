@@ -29,14 +29,14 @@ package component{
 		protected var source:Array;
 		//protected var image0:Image;
 		protected var image0:UI3;
-		protected var image1:Image;
-		protected var image2:Image;
-		protected var image3:Image;
+		protected var image1:UI3;
+		protected var image2:UI3;
+		protected var image3:UI3;
 		protected var image4:UI3;
-		protected var image5:Image;
-		protected var image6:Image;
-		protected var image7:Image;
-		protected var image8:Image;
+		protected var image5:UI3;
+		protected var image6:UI3;
+		protected var image7:UI3;
+		protected var image8:UI3;
 		
 		protected var button_next:Button;
 		protected var button_back:Button;
@@ -89,30 +89,37 @@ package component{
 			image0.visible = false;
 			image0.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image0);
-			image1 = new Image();
-			image1.addEventListener(MouseEvent.CLICK,mouseClickOnI1);
+			image1 = new UI3();
+			image1.visible = false;
+			image1.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image1);
-			image2 = new Image();
-			image2.addEventListener(MouseEvent.CLICK,mouseClickOnI2);
+			image2 = new UI3();
+			image2.visible = false;
+			image2.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image2);
-			image3 = new Image();
-			image3.addEventListener(MouseEvent.CLICK,mouseClickOnI3);
+			image3 = new UI3();
+			image3.visible = false;
+			image3.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image3);
 			image4 = new UI3();//Image();
 			image4.visible = false;
 			image4.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image4);
-			image5 = new Image();
-			image5.addEventListener(MouseEvent.CLICK,mouseClickOnI5);
+			image5 = new UI3();
+			image5.visible = false;
+			image5.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image5);
-			image6 = new Image();
-			image6.addEventListener(MouseEvent.CLICK,mouseClickOnI6);
+			image6 = new UI3();
+			image6.visible = false;
+			image6.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image6);
-			image7 = new Image();
-			image7.addEventListener(MouseEvent.CLICK,mouseClickOnI7);
+			image7 = new UI3();
+			image7.visible = false;
+			image7.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image7);
-			image8 = new Image();
-			image8.addEventListener(MouseEvent.CLICK,mouseClickOnI8);
+			image8 = new UI3();
+			image8.visible = false;
+			image8.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image8);
 			flickr.addEventListener(FlickrResultEvent.PHOTOS_SEARCH, photosSearchEventHandler);
 			
@@ -166,25 +173,29 @@ package component{
 			if(photos.length > 1){
 				image1.x = this.x + 1 * 2 * this.width / 6 + this.width / 12;
 				image1.y = this.y + 0 * 2 * this.height / 6 + this.height / 18;
-				image1.width = this.width/ 6;
-				image1.height = this.height / 6;
-				image1.source = source[1];
+				image1.width = this.width;
+				image1.height = this.height;
+				//image1.source = source[1];
+				animation.play([image1]);
+				image1.photo = photos[photo_index[1]];
 			}
 			
 			if(photos.length > 2){
 				image2.x = this.x + 2 * 2 * this.width / 6 + this.width / 12;
 				image2.y = this.y + 0 * 2 * this.height / 6 + this.height / 18;
-				image2.width = this.width / 6;
-				image2.height = this.height / 6;
-				image2.source = source[2];
+				image2.width = this.width;
+				image2.height = this.height;
+				animation.play([image2]);
+				image2.photo = photos[photo_index[2]];
 			}
 			
 			if(photos.length > 3){
 				image3.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
 				image3.y = this.y + 1 * 2 * this.height / 6 + this.height / 18;
-				image3.width = this.width / 6;
-				image3.height = this.height / 6;
-				image3.source = source[3];
+				image3.width = this.width;
+				image3.height = this.height;
+				animation.play([image3]);
+				image3.photo = photos[photo_index[3]];
 			}
 			
 			if(photos.length > 4){
@@ -200,33 +211,37 @@ package component{
 			if(photos.length > 5){
 				image5.x = this.x + 2 * 2 * this.width / 6 + this.width / 12;
 				image5.y = this.y + 1 * 2 * this.height / 6 + this.height / 18;
-				image5.width = this.width / 6;
-				image5.height = this.height / 6;
-				image5.source = source[5];
+				image5.width = this.width ;
+				image5.height = this.height ;
+				animation.play([image5]);
+				image5.photo = photos[photo_index[5]];
 			}
 			
 			if(photos.length > 6){
 				image6.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
 				image6.y = this.y + 2 * 2 * this.height / 6 + this.height / 18;
-				image6.width = this.width / 6;
-				image6.height = this.height / 6;
-				image6.source = source[6];
+				image6.width = this.width ;
+				image6.height = this.height ;
+				animation.play([image6]);
+				image6.photo = photos[photo_index[6]];
 			}
 			
 			if(photos.length > 7){
 				image7.x = this.x + 1 * 2 * this.width / 6 + this.width / 12;
 				image7.y = this.y + 2 * 2 * this.height / 6 + this.height / 18;
-				image7.width = this.width / 6;
-				image7.height = this.height / 6;
-				image7.source = source[7];
+				image7.width = this.width ;
+				image7.height = this.height ;
+				animation.play([image7]);
+				image7.photo = photos[photo_index[7]];
 			}
 			
 			if(photos.length > 8){
 				image8.x = this.x + 2 * 2 * this.width / 6 + this.width / 12;
 				image8.y = this.y + 2 * 2 * this.height / 6 + this.height / 18;
-				image8.width = this.width / 6;
-				image8.height = this.height / 6;
-				image8.source = source[8];
+				image8.width = this.width ;
+				image8.height = this.height ;
+				animation.play([image8]);
+				image8.photo = photos[photo_index[8]];
 			}
 			
 			
@@ -348,68 +363,18 @@ package component{
 			
 		}
 		
-		public function mouseClickOnI0(event:MouseEvent):void{
-			//send(photos[photo_index[0]])
-		}
-		
-		public function mouseClickOnI1(event:MouseEvent):void{
-			//send(photos[photo_index[1]])
-		}
-		
-		public function mouseClickOnI2(event:MouseEvent):void{
-			//send(photos[photo_index[2]])
-		}
-		
-		public function mouseClickOnI3(event:MouseEvent):void{
-			//send(photos[photo_index[3]])
-		}
-		
-		public function mouseClickOnI4(event:MouseEvent):void{
-			//send(photos[photo_index[4]])
-		}
-		
-		public function mouseClickOnI5(event:MouseEvent):void{
-			//send(photos[photo_index[5]])
-		}
-		
-		public function mouseClickOnI6(event:MouseEvent):void{
-			//send(photos[photo_index[6]])
-		}
-		
-		public function mouseClickOnI7(event:MouseEvent):void{
-			//send(photos[photo_index[7]])
-		}
-		
-		public function mouseClickOnI8(event:MouseEvent):void{
-			//send(photos[photo_index[8]])
-		}
-		
-		public function get_image(i:int):Image{
-			switch(i){
-				//case 0: return image0;
-				case 1: return image1;
-				case 2: return image2;
-				case 3: return image3;
-				//case 4: return image4;
-				case 5: return image5;
-				case 6: return image6;
-				case 7: return image7;
-				case 8: return image8;
-				default: return null;
-			}
-		}
 		public function set_image(i:int, index:int):void{
 			if(index >= photos.length) source[index] = "";
 			switch(i){
 				case 0: image0.photo = photos[photo_index[0]];break;//image0.setImageUrl(source[index]); break;// .source = source[index];break;
-				case 1: image1.source = source[index];break;
-				case 2: image2.source = source[index];break;
-				case 3: image3.source = source[index];break;
+				case 1: image1.photo = photos[photo_index[1]];break;
+				case 2: image2.photo = photos[photo_index[2]];break;
+				case 3: image3.photo = photos[photo_index[3]];break;
 				case 4: image4.photo = photos[photo_index[4]];break;// image4.source = source[index];break;
-				case 5: image5.source = source[index];break;
-				case 6: image6.source = source[index];break;
-				case 7: image7.source = source[index];break;
-				case 8: image8.source = source[index];break;
+				case 5: image5.photo = photos[photo_index[5]];break;
+				case 6: image6.photo = photos[photo_index[6]];break;
+				case 7: image7.photo = photos[photo_index[7]];break;
+				case 8: image8.photo = photos[photo_index[8]];break;
 				default: return;
 			}
 		}
