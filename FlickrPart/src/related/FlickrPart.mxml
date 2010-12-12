@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:related="related.*"
+			   height="100%" width="100%" backgroundColor="#000000" >
+
+	<!--
+	1c913052ca13a4af351c76b792598e67
+	9ae61435b7d48ebc
+	-->
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			public function search(event:FlexEvent):void {
+				(related as Related).tag  = this.textInput.text;
+			}
+		]]>
+	</fx:Script>
+	
+	<related:Related id="related" verticalCenter="0" horizontalCenter="0" />
+	<s:TextInput id="textInput" enter="search(event)" />
+	
+</s:Application>
