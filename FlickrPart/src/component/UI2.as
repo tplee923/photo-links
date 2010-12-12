@@ -142,6 +142,8 @@ package component{
 			}
 		}
 		
+		
+		
 		public function loadImages():void{
 			var i: int = 0;
 			for(i=0; i<photos.length; i++){
@@ -246,28 +248,41 @@ package component{
 			
 			
 			
-			button_back.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
-			button_back.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
-			button_back.width = this.width / 12;
-			button_back.height = this.height / 18;
+			//button_back.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
+			//button_back.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
+			//button_back.width = this.width / 12;
+			//button_back.height = this.height / 18;
+			button_back.x = this.x + 0.125 * this.width / 6;
+			button_back.y = this.y + 2.5 * this.height / 6;
+			button_back.width = this.width / 24;
+			button_back.height = this.height / 9;
 			button_back.label = "<";
 			button_back.enabled = false;
 			button_back.mouseEnabled = false;
 			
-			button_next.x = this.x + 5 * this.width / 6;
-			button_next.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
-			button_next.width = this.width / 12;
-			button_next.height = this.height / 18;
+			//button_next.x = this.x + 5 * this.width / 6;
+			//button_next.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
+			//button_next.width = this.width / 12;
+			//button_next.height = this.height / 18;
+			
+			button_next.x = this.x + 0.125 * this.width / 6 + 5.5 * this.width / 6;
+			button_next.y = this.y + 2.5 * this.height / 6;
+			button_next.width = this.width / 24;
+			button_next.height = this.height / 9;
 			button_next.label = ">";
+			button_next.enabled = true;
+			button_next.mouseEnabled = true;
 			if(photos.length <= 9){
 				button_next.enabled = false;
 				button_next.mouseEnabled = false;
 			}
 			
+			
 			label.x = this.x + 2 * this.width / 6;
 			label.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
 			label.width = 2 * width / 6;
 			label.height = this.height / 18;
+			label.setStyle("color","white");
 			
 			this.addElement(button_back);
 			this.addElement(button_next);
@@ -364,17 +379,31 @@ package component{
 		}
 		
 		public function set_image(i:int, index:int):void{
-			if(index >= photos.length) source[index] = "";
+			if(index >= photos.length){
+				switch(i){
+					case 0: image0.visible = false;break;//image0.setImageUrl(source[index]); break;// .source = source[index];break;
+					case 1: image1.visible = false;break;
+					case 2: image2.visible = false;break;
+					case 3: image3.visible = false;break;// = null;break;
+					case 4: image4.visible = false;break;// = null;break;// image4.source = source[index];break;
+					case 5: image5.visible = false;break;// = null;break;
+					case 6: image6.visible = false;break;// = null;break;
+					case 7: image7.visible = false;break;// = null;break;
+					case 8: image8.visible = false;break;// = null;break;
+					default: return;
+				}
+				return;
+			}
 			switch(i){
-				case 0: image0.photo = photos[photo_index[0]];break;//image0.setImageUrl(source[index]); break;// .source = source[index];break;
-				case 1: image1.photo = photos[photo_index[1]];break;
-				case 2: image2.photo = photos[photo_index[2]];break;
-				case 3: image3.photo = photos[photo_index[3]];break;
-				case 4: image4.photo = photos[photo_index[4]];break;// image4.source = source[index];break;
-				case 5: image5.photo = photos[photo_index[5]];break;
-				case 6: image6.photo = photos[photo_index[6]];break;
-				case 7: image7.photo = photos[photo_index[7]];break;
-				case 8: image8.photo = photos[photo_index[8]];break;
+				case 0: image0.photo = photos[index]; image0.visible = true; break;//image0.setImageUrl(source[index]); break;// .source = source[index];break;
+				case 1: image1.photo = photos[index]; image1.visible = true; break;
+				case 2: image2.photo = photos[index]; image2.visible = true; break;
+				case 3: image3.photo = photos[index]; image3.visible = true; break;
+				case 4: image4.photo = photos[index]; image4.visible = true; break;// image4.source = source[index];break;
+				case 5: image5.photo = photos[index]; image5.visible = true; break;
+				case 6: image6.photo = photos[index]; image6.visible = true; break;
+				case 7: image7.photo = photos[index]; image7.visible = true; break;
+				case 8: image8.photo = photos[index]; image8.visible = true; break;
 				default: return;
 			}
 		}
