@@ -162,14 +162,8 @@
 			
 			protected function doZoom(event:MouseEvent):void
 			{
-				var x:int = this.mouseX;
-				var y:int = this.mouseY;
-				var left_x:int = this.x;
-				var right_x:int = this.x + this.width;
-				var top_y:int = this.y;
-				var down_y:int = this.y + this.height;
-				var judge:Boolean = (x<left_x)||(x>right_x)||(y<top_y)||(y>down_y);
-				if(event.type == MouseEvent.ROLL_OUT && judge){
+				
+				if(event.type == MouseEvent.ROLL_OUT){
 					var zoomFull:Parallel = new Parallel();
 					var zoom:Zoom = new Zoom();
 					zoomFull.duration = 600;
