@@ -17,7 +17,7 @@
 		
 	</fx:Style>
 	
-<!--			import com.adobe.webapis.flickr.FlickrService;
+<!--		import com.adobe.webapis.flickr.FlickrService;
 			import com.adobe.webapis.flickr.PhotoTag;
 			import com.adobe.webapis.flickr.events.FlickrResultEvent;
 			import com.adobe.webapis.flickr.methodgroups.Tags;
@@ -76,6 +76,10 @@
 			import com.adobe.webapis.flickr.events.FlickrResultEvent;
 			
 			import mx.collections.ArrayCollection;
+			import mx.effects.Move;
+			import mx.effects.Parallel;
+			import mx.effects.Zoom;
+			import mx.controls.Alert;
 			
 			private var _clouds:ArrayCollection;
 			private var _flickrService:FlickrService;
@@ -155,6 +159,57 @@
 					//this.testLabel.text = "Failed";
 				}
 			}
+			
+			protected function doZoom(event:MouseEvent):void
+			{
+				var x:int = this.mouseX;
+				var y:int = this.mouseY;
+				var left_x:int = this.x;
+				var right_x:int = this.x + this.width;
+				var top_y:int = this.y;
+				var down_y:int = this.y + this.height;
+				var judge:Boolean = (x<left_x)||(x>right_x)||(y<top_y)||(y>down_y);
+				if(event.type == MouseEvent.ROLL_OUT && judge){
+					var zoomFull:Parallel = new Parallel();
+					var zoom:Zoom = new Zoom();
+					zoomFull.duration = 600;
+					zoom.zoomHeightFrom = 2.0;
+					zoom.zoomHeightTo = 1.0;
+					zoom.zoomWidthFrom = 2.0;
+					zoom.zoomWidthTo = 1.0;
+					zoom.originX = this.x + this.width / 2;
+					zoom.originY = this.y + this.height / 2;
+					//Alert.show(this.x.toString());
+					
+					zoomFull.addChild(zoom);
+					//zoomFull.addChild(move);
+					
+					zoomFull.play([this]);	
+				}
+				else if(event.type == MouseEvent.ROLL_OVER){
+					var zoomFull2:Parallel = new Parallel();
+					var zoom2:Zoom = new Zoom();
+					zoomFull2.duration = 600;
+					
+					zoom2.zoomHeightFrom = 1.0;
+					zoom2.zoomHeightTo = 2.0;
+					zoom2.zoomWidthFrom = 1.0;
+					zoom2.zoomWidthTo = 2.0;
+					zoom2.originX = this.x + this.width / 2;
+					zoom2.originY = this.y + this.height / 2;
+					//Alert.show(this.x.toString());
+					//Alert.show(this.middle.x.toString());
+					
+					zoomFull2.addChild(zoom2);
+					//zoomFull.addChild(move);
+					
+					zoomFull2.play([this]);	
+					
+				}
+				
+				// TODO Auto-generated method stub
+			}
+
 		]]>
 	</fx:Script>
 	
@@ -184,6 +239,8 @@
 		}
 	</fx:Style>
 	
-	<component:UI2 id="middle" height="300" width="300" verticalCenter="-75" horizontalCenter="-75" styleName="ui2Style" />
+	<component:UI2 id="middle" height="300" width="300" verticalCenter="-75" horizontalCenter="-75" styleName="ui2Style" 
+				   rollOut="doZoom(event)"
+				   rollOver="doZoom(event)"/>
 
 </s:Group>
