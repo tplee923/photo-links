@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 >
+	<!-- creationComplete="addListenerToControls()" -->
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:HTTPService id="photoService" showBusyCursor="true"
+						url="http://api.flickr.com/services/feeds/photos_public.gne"
+						result="photoHandler(event)" fault="photoFaultHandler(event)" />
+	</fx:Declarations>
+	
+	<mx:Canvas id="theCanvas" >
+		<!-- "http://farm2.static.flickr.com/5283/5249873849_ee82e133bc_m.jpg" -->
+		<mx:Image id="image" x="0" y="0" width="100%" height="75%" source="{horizontalList.selectedItem.content.url}"/>
+		
+		<mx:Button x="{this.buttonX}" y="{this.buttonY}" id="otherPhotosButton" label="Other photoes of this author" click="requestPhotos(event)"/>
+		<s:Button id="closeButton" x="0" y="0" label="Close" click="closeEventHandler(event)" />
+		
+		<mx:HorizontalList id="horizontalList" width="100%" height="100%"
+						   dataProvider="{photoFeed}" columnCount="8" rowCount="1" x="0" y="{this.listHeight}" visible="false" includeInLayout="false" >
+			<mx:itemRenderer>
+				<fx:Component>
+					<mx:VBox width="30%" height="100%"
+							 horizontalAlign="center"
+							 >
+						<mx:Image
+							width="100%" height="100%"
+							source="{data.thumbnail.url}"/>
+					</mx:VBox>
+				</fx:Component> 
+			</mx:itemRenderer>
+		</mx:HorizontalList>
+	</mx:Canvas>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.webapis.flickr.Photo;
+			
+			import component.UI2;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.effects.Move;
+			import mx.effects.Parallel;
+			import mx.effects.Zoom;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			//public var zoomFull:Parallel = null;
+			public var isZoomed:Boolean = false;
+			public var ui2:UI2;
+			
+			private var buttonListenerAdded:Boolean = false;
+			
+			private var zoomOriginalScale:Number = 0.2;
+			public var origX:Number = 0;
+			public var origY:Number = 0;
+			
+			private var _ownerID:String;
+			
+			private var _photo:Photo;
+			[Bindable]
+			public function get photo():Photo {
+				return this._photo;
+			}
+			public function set photo(value:Photo):void {
+				//if (!this.buttonListenerAdded) {
+					//this.closeButton.addEventListener(MouseEvent.CLICK, closeEventHandler);
+					//this.buttonListenerAdded = true;
+				//}
+				//this.
+				
+				this.visible = true;
+				
+				this._photo = value;
+				
+				image.source = "http://farm" + value.farmId + ".static.flickr.com/" + value.server
+					+ "/" + value.id + "_" + value.secret + "_z.jpg";
+				
+				this._ownerID = value.ownerId;
+				//Alert.show(this._ownerID);
+				//this.invalidateProperties();
+			}
+			
+			private var _listHeight:Number;
+			[Bindable]
+			public function get listHeight():Number {
+				return this._listHeight;
+			}
+			public function set listHeight(value:Number):void {
+				this._listHeight = value;
+			}
+			
+			private var _buttonX:Number;
+			[Bindable]
+			public function get buttonX():Number {
+				return this._buttonX;
+			}
+			public function set buttonX(value:Number):void {
+				this._buttonX = value;
+			}
+			
+			private var _buttonY:Number;
+			[Bindable]
+			public function get buttonY():Number {
+				return this._buttonY;
+			}
+			public function set buttonY(value:Number):void {
+				this._buttonY = value;
+			}
+			
+		override public function set width(value:Number):void {
+			super.width = value;
+			this.theCanvas.width = value;
+			this.buttonX = (value - this.otherPhotosButton.width) * 0.95;
+		}
+			
+		override public function set height(value:Number):void {
+			super.height = value;
+			this.theCanvas.height = value;
+			this.listHeight = value * .85;
+			this.buttonY = (value * .75) * 1.05;
+		}
+		
+		[Bindable]
+		private var photoFeed:ArrayCollection;
+		
+		
+		// The image URL is in the HTML content
+		// so we have to parse it out.
+		private function parseImageUrl(fromHtml:XMLList):String
+		{
+		
+		var pattern:RegExp = /img src="(.+?)" /;
+		var results:Array = pattern.exec(fromHtml);
+		var imageURL:String = results[1]; // backreference 1 from pattern
+		
+		return imageURL;
+		}
+		
+		// add a event listener to textInput control using the Event Listeners
+		// You can search more at addEventListeners on this site
+		//public function setImageUrl(value:String):void {
+		//searchTerms.addEventListener(FlexEvent.ENTER,requestPhotos);
+		//	this.visible = true;
+		//image.source=value;//"http://farm2.static.flickr.com/5283/5249873849_ee82e133bc_m.jpg";
+		//}
+		// Request photos based on keyword criteria you insert
+		private function requestPhotos(event:Event):void {
+		// if the photoService is still loading we cancel to prevent errors 
+		// then we call again.
+		photoService.cancel();
+		var params:Object = new Object();
+		//params.tags=searchTerms.text;
+		//params.tags="apple";
+		params.author = this._ownerID;// '56848648@N02';
+		params.format = 'rss_200_enc';
+		//params.tags = searchTerms.text;
+		photoService.send(params);
+		
+		horizontalList.includeInLayout = true;
+		horizontalList.visible = true;
+		}
+		// Handler the result function from HTTPService request you did 
+		// and convert the result into a Array Collection
+		private function photoHandler(event:ResultEvent):void {
+		photoFeed = event.result.rss.channel.item as ArrayCollection;
+		}
+		// If the HTTPService had errors, we handle it here show an alert message
+		// like we have in Javascript
+		private function photoFaultHandler(event:FaultEvent):void {
+		Alert.show("Impossible to load or reach photos from services","Error");
+		}
+		
+		
+		public function closeEventHandler(event:MouseEvent):void {
+			var zoomFull:Parallel = new Parallel();
+			zoomFull.duration = 600;
+			var zoom2:Zoom = new Zoom();
+			zoom2.zoomHeightFrom = 1.0;
+			zoom2.zoomHeightTo = zoomOriginalScale;
+			zoom2.zoomWidthFrom = 1.0;
+			zoom2.zoomWidthTo = zoomOriginalScale;
+			zoom2.originX = 0;
+			zoom2.originY = 0;
+			
+			var move:Move = new Move();
+			move.xFrom = 75;//x;
+			move.yFrom = 75;//y;
+		    move.xTo = this.origX;
+			move.yTo = this.origY;
+			
+			zoomFull.addChild(zoom2);
+			zoomFull.addChild(move);
+
+			this.isZoomed = false;
+			this.addEventListener(MouseEvent.CLICK,ui2.mouseClickOn);
+			
+			event.stopPropagation();
+			
+			zoomFull.play([this]);
+			
+			//zoomFull.reverse();
+			//zoomFull.play([this]);
+			//Alert.show("hrere");
+			//zoomFull = a
+		}
+		]]>
+	</fx:Script>
+	
+	
+	
+	<!--mx:HBox>
+	<mx:Label text="Flickr tags or search terms:" />
+	<mx:TextInput id="searchTerms" />
+	<mx:Button label="Search"
+	click="requestPhotos(event)" />
+	</mx:HBox>
+	
+	<mx:TileList width="100%" height="100%"
+	dataProvider="{photoFeed}" columnCount="3" rowCount="1">
+	<mx:itemRenderer>
+	<mx:Component>
+	<mx:VBox width="125" height="125"
+	horizontalAlign="center"
+	paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5">
+	<mx:Image
+	width="100" height="100"
+	source="{data.thumbnail.url}"/>
+	</mx:VBox>
+	</mx:Component> 
+	</mx:itemRenderer>
+	</mx:TileList-->
+	
+</s:Group>

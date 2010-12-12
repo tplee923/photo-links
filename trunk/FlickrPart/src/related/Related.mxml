@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:related="related.*" xmlns:component="component.*"
+
+		 >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace related "related.*";
+		
+		
+		
+	</fx:Style>
+	
+<!--			import com.adobe.webapis.flickr.FlickrService;
+			import com.adobe.webapis.flickr.PhotoTag;
+			import com.adobe.webapis.flickr.events.FlickrResultEvent;
+			import com.adobe.webapis.flickr.methodgroups.Tags;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			
+			[Bindable]
+			public var flickrService:FlickrService = null;
+			
+			public var _tag:String;
+			[Bindable]
+			public function get tag():String {
+				return this._tag;
+			}
+			public function set tag(value:String):void {
+				this._tag = value;
+				
+				if (this.flickrService == null)
+					this.flickrService = new FlickrService("1c913052ca13a4af351c76b792598e67");
+				
+				if (!this._initialized) {
+					this.flickrService.addEventListener(FlickrResultEvent.TAGS_GET_RELATED, tagsGetRelatedEventHandler);
+					this._initialized = true;
+				}
+				
+				this.flickrService.tags.getRelated("apple");
+			}
+			
+			private var _radius:Number = 200;
+			private var _initialized:Boolean = false;
+			
+			private function tagsGetRelatedEventHandler(event:FlickrResultEvent):void {
+				if (event.success) {
+					for each (var obj:PhotoTag in event.data.tags as Array) {
+						this.testLabel.text += "|" + obj.tag;
+					}
+				} else {
+					this.testLabel.text = "Failed";
+				}
+			}
+			
+			protected function buttonHandler(event:Event):void {
+				this.tag = "apple";
+			}
+-->
+	
+	<!--<related:Middle id="_middle" horizontalCenter="0" verticalCenter="0" />-->
+	<!--<s:Label id="testLabel" text="init"/>
+	<s:Button click="buttonHandler(event)" x="100" y="100" />-->
+	
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.webapis.flickr.FlickrService;
+			import com.adobe.webapis.flickr.PhotoTag;
+			import com.adobe.webapis.flickr.events.FlickrResultEvent;
+			
+			import mx.collections.ArrayCollection;
+			
+			private var _clouds:ArrayCollection;
+			private var _flickrService:FlickrService;
+			private var _CLOUD_TOTAL:Number = 8;
+			private var _radius:Number = 250;
+			
+			private var _tag:String;
+			[Bindable]
+			public function get tag():String {
+				return this._tag;
+			}
+			public function set tag(value:String):void {
+				this._tag = value;
+				
+				this.middle.set_tag(this._tag);
+				
+				if (this._flickrService == null) {
+					this._flickrService = new FlickrService("1c913052ca13a4af351c76b792598e67");
+					this._flickrService.addEventListener(FlickrResultEvent.TAGS_GET_RELATED, tagsGetRelatedEventHandler);
+					
+					this.cloud0.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud1.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud2.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud3.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud4.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud5.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud6.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud7.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+				}
+				
+				this._flickrService.tags.getRelated(this._tag);
+			}
+			
+			private function cloudsClickedEventHandler(event:MouseEvent):void {
+				this.testLabel.text = "clicked";
+				this.testLabel.text = event.currentTarget.tag;
+				this.tag = event.currentTarget.tag;
+			}
+			
+			private function tagsGetRelatedEventHandler(event:FlickrResultEvent):void {
+				if (event.success) {
+					var tagCount:Number = (event.data.tags as Array).length;
+					var i:Number = 0;
+					var cloud:Cloud = null;
+					
+					if (this._clouds == null) {
+						this._clouds = new ArrayCollection();
+						this._clouds.addItem(this.cloud0);
+						this._clouds.addItem(this.cloud1);
+						this._clouds.addItem(this.cloud2);
+						this._clouds.addItem(this.cloud3);
+						this._clouds.addItem(this.cloud4);
+						this._clouds.addItem(this.cloud5);
+						this._clouds.addItem(this.cloud6);
+						this._clouds.addItem(this.cloud7);
+					}
+					
+					for (i = 0; i < this._CLOUD_TOTAL; ++i) {
+						(this._clouds.getItemAt(i) as Cloud).visible = false;
+					}
+					
+					if (tagCount > this._CLOUD_TOTAL) {
+						tagCount = this._CLOUD_TOTAL;
+					}
+					for (i = 0; i < tagCount; ++i) {
+						var photoTag:PhotoTag = (event.data.tags as Array)[i];
+						
+						cloud = (this._clouds.getItemAt(i) as Cloud);
+						cloud.verticalCenter = Math.cos(i * 3.1415 * 2 / tagCount) * this._radius;
+						cloud.horizontalCenter = Math.sin(i * 3.1415 * 2 / tagCount) * this._radius;
+						
+						cloud.tag = photoTag.tag;
+						cloud.visible = true;
+					}
+					
+				} else {
+					//this.testLabel.text = "Failed";
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<!-- TODO <related:Middle id="middle" verticalCenter="0" horizontalCenter="0" />-->
+	<!-- <related:Cloud id="middle" verticalCenter="0" horizontalCenter="0" /> -->
+	<related:Cloud id="cloud0" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud1" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud2" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud3" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud4" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud5" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud6" visible="false" width="100" height="100" />
+	<related:Cloud id="cloud7" visible="false" width="100" height="100" />
+
+	<s:Label id="testLabel" color="#FFFFFF" text="Label" x="400" y="400" />
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace related "related.*";
+		@namespace component "component.*";
+		
+		.ui2Style {
+			background-color: #FF0000;
+			border-color: #FF0000;
+			border-style: solid;
+		}
+	</fx:Style>
+	
+	<component:UI2 id="middle" height="300" width="300" verticalCenter="-75" horizontalCenter="-75" styleName="ui2Style" />
+
+</s:Group>
