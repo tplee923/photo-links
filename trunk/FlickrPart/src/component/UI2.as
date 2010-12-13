@@ -9,7 +9,9 @@ package component{
 	
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Matrix;
+	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
 	import mx.collections.ArrayCollection;
@@ -162,6 +164,9 @@ package component{
 				var photoList:PagedPhotoList = event.data.photos;
 				photos = new ArrayCollection(photoList.photos);
 				loadImages();
+				/*var wait_time:Timer = new Timer(20000);
+				wait_time.addEventListener(TimerEvent.TIMER,playWait);
+				wait_time.start();*/
 				//Alert.show("aa");
 			}
 			else{
@@ -169,7 +174,20 @@ package component{
 			}
 		}
 		
-		
+		public function set_visiable(i:int,flag:Boolean):void{
+			switch(i){
+				case 0: image0.visible = flag; break;//image0.setImageUrl(source[index]); break;// .source = source[index];break;
+				case 1: image1.visible = flag; break;
+				case 2: image2.visible = flag; break;
+				case 3: image3.visible = flag; break;
+				case 4: image4.visible = flag; break;// image4.source = source[index];break;
+				case 5: image5.visible = flag; break;
+				case 6: image6.visible = flag; break;
+				case 7: image7.visible = flag; break;
+				case 8: image8.visible = flag; break;
+				default: return;
+			}
+		}
 		
 		public function loadImages():void{
 			var i: int = 0;
@@ -186,7 +204,10 @@ package component{
 				for(i=0;i<photos.length;i++)photo_index[i]=i;
 				label.text = (photo_index[0] + 1).toString() + " to " + (photo_index[photos.length - 1] + 1).toString() + " of " + photos.length.toString();
 			}
-			
+			/*var j:int = 0;
+			for(j =0; j<9;j++){
+				set_visiable(j,false);
+			}*/
 			if(photos.length > 0){
 				image0.x = 0 * 2 * this.width / 6 + this.width / 12;
 				image0.y = 0 * 2 * this.height / 6 + this.height / 18;
@@ -314,6 +335,8 @@ package component{
 			this.addElement(button_back);
 			this.addElement(button_next);
 			this.addElement(label);
+			
+			
 		}
 		
 		public function mouseClickOnNext(event:MouseEvent):void{
