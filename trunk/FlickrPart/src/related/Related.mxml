@@ -160,7 +160,9 @@
 				}
 			}
 			
-			
+			private var zoomFull:Parallel = null;
+			private var zoomFull2:Parallel = null;
+			private var zoomStatus:Boolean = false;
 			protected function doZoom(event:MouseEvent):void
 			{
 				var center_x:int = this.x + this.width / 2;
@@ -176,8 +178,8 @@
 				
 				var judge1:Boolean = (delta_x * delta_x + delta_y * delta_y < 200 * 200);
 				var judge2:Boolean = (delta_x * delta_x + delta_y * delta_y > 200 * 200);
-				if(event.type == MouseEvent.ROLL_OUT){
-					var zoomFull:Parallel = new Parallel();
+				if (zoomFull == null) {
+					zoomFull = new Parallel();
 					var zoom:Zoom = new Zoom();
 					zoomFull.duration = 600;
 					zoom.zoomHeightFrom = 2.0;
@@ -190,11 +192,9 @@
 					
 					zoomFull.addChild(zoom);
 					//zoomFull.addChild(move);
-					
-					zoomFull.play([this]);	
 				}
-				else if(event.type == MouseEvent.ROLL_OVER){
-					var zoomFull2:Parallel = new Parallel();
+				if (zoomFull2 == null) {
+					zoomFull2 = new Parallel();
 					var zoom2:Zoom = new Zoom();
 					zoomFull2.duration = 600;
 					
@@ -209,9 +209,15 @@
 					
 					zoomFull2.addChild(zoom2);
 					//zoomFull.addChild(move);
-					
+				}
+				
+				if(event.type == MouseEvent.ROLL_OUT && !zoomFull.isPlaying && !zoomFull2.isPlaying && zoomStatus){
+					zoomFull.play([this]);	
+					zoomStatus = false;
+				}
+				else if(event.type == MouseEvent.ROLL_OVER && !zoomFull.isPlaying && !zoomFull2.isPlaying && !zoomStatus){
 					zoomFull2.play([this]);	
-					
+					zoomStatus = true;
 				}
 				
 				// TODO Auto-generated method stub
