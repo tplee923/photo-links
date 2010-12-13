@@ -22,8 +22,9 @@
 	
 		<mx:Image verticalAlign="middle" horizontalAlign="center" id="image" horizontalCenter="0" width="{this.width}" height="{this.height*.75}" source="{horizontalList.selectedItem.content.url}"/>
 		
-		<mx:LinkButton x="0" y="{this.buttonY}" id="otherPhotosButton" click="requestPhotos(event)" visible="false"  />
+		<mx:LinkButton fontFamily="Arial Black" x="0" y="{this.buttonY}" id="otherPhotosButton" click="requestPhotos(event)" visible="false"  />
 		<s:Button id="closeButton" width="60" x="0" y="0" label="Close" click="closeEventHandler(event)"  chromeColor="#000000" focusColor="#70B2EE" color="#FFFFFF" visible="false" />
+	<mx:LinkButton visible="false" id="photoPage" click="thePhotoPage()" label="View Flickr Photo Page" fontFamily="Arial Black" x="{this.width - photoPage.width}" y="{this.buttonY}" />
 		
 		<mx:HorizontalList id="horizontalList" width="100%" height="100%"
 						   dataProvider="{photoFeed}" columnCount="8" rowCount="1" x="0" y="{this.listHeight}" visible="false" includeInLayout="false" >
@@ -58,6 +59,7 @@
 			public function buttonVisible(value:Boolean):void {
 				otherPhotosButton.visible = value;
 				closeButton.visible = value;
+				photoPage.visible = value;
 			}
 			
 			//public var zoomFull:Parallel = null;
@@ -77,6 +79,11 @@
 			public function get photo():Photo {
 				return this._photo;
 			}
+			
+			private var photoID:String;
+			private function thePhotoPage():void {
+				navigateToURL(new URLRequest("http://www.flickr.com/photos/" + this._photo.ownerId + "/" + this.photoID + "/"));
+			}
 			public function set photo(value:Photo):void {
 				//if (!this.buttonListenerAdded) {
 					//this.closeButton.addEventListener(MouseEvent.CLICK, closeEventHandler);
@@ -88,6 +95,8 @@
 				
 				this._photo = value;
 				
+				this.photoID = this._photo.id;
+				//this.photoPage.label = 
 				this.otherPhotosButton.label = "Author: " + this._photo.ownerId;
 				image.source = "http://farm" + value.farmId + ".static.flickr.com/" + value.server
 					+ "/" + value.id + "_" + value.secret + "_z.jpg";
@@ -164,17 +173,17 @@
 		private function requestPhotos(event:Event):void {
 		// if the photoService is still loading we cancel to prevent errors 
 		// then we call again.
-		photoService.cancel();
-		var params:Object = new Object();
-		//params.tags=searchTerms.text;
-		//params.tags="apple";
-		params.author = this._ownerID;// '56848648@N02';
-		params.format = 'rss_200_enc';
-		//params.tags = searchTerms.text;
-		photoService.send(params);
-		
-		horizontalList.includeInLayout = true;
-		horizontalList.visible = true;
+			photoService.cancel();
+			var params:Object = new Object();
+			//params.tags=searchTerms.text;
+			//params.tags="apple";
+			params.author = this._ownerID;// '56848648@N02';
+			params.format = 'rss_200_enc';
+			//params.tags = searchTerms.text;
+			photoService.send(params);
+			
+			horizontalList.includeInLayout = true;
+			horizontalList.visible = true;
 		}
 		// Handler the result function from HTTPService request you did 
 		// and convert the result into a Array Collection
