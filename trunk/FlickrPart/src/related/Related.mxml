@@ -82,6 +82,7 @@
 			import mx.effects.Move;
 			import mx.effects.Parallel;
 			import mx.effects.Zoom;
+			import mx.events.EffectEvent;
 			
 			private var _clouds:ArrayCollection;
 			private var _flickrService:FlickrService;
@@ -115,10 +116,60 @@
 				this._flickrService.tags.getRelated(this._tag);
 			}
 			
+			private var tag_store:String;
 			private function cloudsClickedEventHandler(event:MouseEvent):void {
 				//this.testLabel.text = "clicked";
 				//this.testLabel.text = event.currentTarget.tag;
-				this.tag = event.currentTarget.tag;
+				var cl:related.Cloud = event.currentTarget as related.Cloud;
+				this.cloud0.visible = false;
+				this.cloud1.visible = false;
+				this.cloud2.visible = false;
+				this.cloud3.visible = false;
+				this.cloud4.visible = false;
+				this.cloud5.visible = false;
+				this.cloud6.visible = false;
+				this.cloud7.visible = false;
+				this.middle.visible = false;
+				cl.visible = true;
+				var zoomMove:Parallel = new Parallel();
+				/*var zoomx:Zoom = new Zoom();
+				zoomx.zoomHeightFrom = 1.0;
+				zoomx.zoomHeightTo = 3.0;
+				zoomx.zoomWidthFrom = 1.0;
+				zoomx.zoomWidthTo = 3.0;
+				zoomx.originX = 0;
+				zoomx.originY = 0;*/
+				
+				var origX:int = cl.x;
+				var origY:int = cl.y;
+				zoomMove.duration = 600;
+				var move:Move = new Move();
+				move.xFrom = cl.x;
+				move.yFrom = cl.y;
+				move.xTo = this.middle.x + this.middle.width / 4 - cl.width / 2;
+				move.yTo = this.middle.y + this.middle.height / 4 - cl.height / 2;
+				
+				zoomMove.addEventListener(EffectEvent.EFFECT_END,moveFinished);
+				zoomMove.addChild(move);
+				zoomMove.play([cl]);
+				//this.tag = event.currentTarget.tag;
+				//cl.x = origX;
+				//cl.y = origY;
+				//cl.visible = false;
+				tag_store = event.currentTarget.tag;
+			}
+			
+			private function moveFinished(event:EffectEvent):void{
+				this.cloud0.visible = true;
+				this.cloud1.visible = true;
+				this.cloud2.visible = true;
+				this.cloud3.visible = true;
+				this.cloud4.visible = true;
+				this.cloud5.visible = true;
+				this.cloud6.visible = true;
+				this.cloud7.visible = true;
+				this.middle.visible = true;
+				this.tag = tag_store;
 			}
 			
 			private function tagsGetRelatedEventHandler(event:FlickrResultEvent):void {
@@ -170,7 +221,7 @@
 			private var theDuration:Number = 300;
 			protected function doZoom(event:MouseEvent):void
 			{
-				var center_x:int = this.x + this.width / 2;
+				/*var center_x:int = this.x + this.width / 2;
 				var center_y:int = this.y + this.height / 2;
 				
 				var x:int = this.mouseX;
@@ -182,7 +233,7 @@
 				if(delta_y < 0) delta_y = - delta_y;
 				
 				var judge1:Boolean = (delta_x * delta_x + delta_y * delta_y < 200 * 200);
-				var judge2:Boolean = (delta_x * delta_x + delta_y * delta_y > 200 * 200);
+				var judge2:Boolean = (delta_x * delta_x + delta_y * delta_y > 200 * 200);*/
 				if (zoomFull == null) {
 					zoomFull = new Parallel();
 					var zoom:Zoom = new Zoom();
