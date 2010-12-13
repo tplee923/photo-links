@@ -32,6 +32,7 @@
 					isCentered = false;
 					moveToCorner.play([textInput]);
 				}
+				//(related as Related).searchBar = this.textInput;
 				(related as Related).tag  = this.textInput.text;
 			}
 			
@@ -44,7 +45,7 @@
 		]]>
 	</fx:Script>
 	
-	<related:Related id="related" verticalCenter="0" horizontalCenter="0" />
+	<related:Related id="related" verticalCenter="0" horizontalCenter="0" searchBar="{textInput}" />
 	<s:TextInput id="textInput" enter="search(event)"  fontFamily="Arial Black" fontSize="22" />
 	
 </s:Application>
