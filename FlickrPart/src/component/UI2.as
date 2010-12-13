@@ -10,6 +10,7 @@ package component{
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
+	import flash.utils.setTimeout;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
@@ -398,10 +399,17 @@ package component{
 				ui3.removeEventListener(MouseEvent.CLICK,mouseClickOn);
 				zoomFull.play([ui3]);
 				
+				flash.utils.setTimeout(function (ui3:UI3):void {ui3.buttonVisible(true);}, 600, ui3);
+				
+				//ui3.buttonVisible(true);
 				//ui3.removeEventListener(MouseEvent.CLICK,mouseClickOn);
 				//Alert.show("here");
 			//}
 			
+		}
+		
+		private function buttonVisible(ui3:UI3, value:Boolean):void {
+			ui3.buttonVisible(value);
 		}
 		
 		public function set_image(i:int, index:int):void{
