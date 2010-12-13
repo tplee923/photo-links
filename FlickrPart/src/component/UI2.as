@@ -265,7 +265,7 @@ package component{
 			//button_next.width = this.width / 12;
 			//button_next.height = this.height / 18;
 			
-			button_next.x = this.width / 48 + 5.5 * this.width / 6;
+			button_next.x = this.width / 24 + 5.5 * this.width / 6;
 			button_next.y = 2.5 * this.height / 6;
 			button_next.width = this.width / 24;
 			button_next.height = this.height / 9;
