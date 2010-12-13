@@ -3,11 +3,6 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:related="related.*"
 			   height="100%" width="100%" backgroundColor="#000000" creationComplete="myinitialize()" >
-
-	<!--
-	1c913052ca13a4af351c76b792598e67
-	9ae61435b7d48ebc
-	-->
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
