@@ -45,6 +45,6 @@
 	</fx:Script>
 	
 	<related:Related id="related" verticalCenter="0" horizontalCenter="0" />
-	<s:TextInput id="textInput" enter="search(event)" />
+	<s:TextInput id="textInput" enter="search(event)"  fontFamily="Arial Black" fontSize="22" />
 	
 </s:Application>
