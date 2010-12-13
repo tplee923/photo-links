@@ -12,6 +12,13 @@
 	</fx:Declarations>
 	
 	<mx:Canvas id="theCanvas" >
+		<s:Group width="100%" height="100%">
+			<s:Rect width="100%" height="100%">
+				<s:fill>
+					<s:SolidColor color="#FFFFFF" />
+				</s:fill>
+			</s:Rect>
+		</s:Group>
 		<!-- "http://farm2.static.flickr.com/5283/5249873849_ee82e133bc_m.jpg" -->
 		<mx:Image id="image" x="0" y="0" width="100%" height="75%" source="{horizontalList.selectedItem.content.url}"/>
 		
