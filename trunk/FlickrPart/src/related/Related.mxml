@@ -110,6 +110,7 @@
 				
 				this.middle.set_tag(this._tag);
 				
+				
 				if (this._flickrService == null) {
 					this._flickrService = new FlickrService("1c913052ca13a4af351c76b792598e67");
 					this._flickrService.addEventListener(FlickrResultEvent.TAGS_GET_RELATED, tagsGetRelatedEventHandler);
@@ -175,7 +176,7 @@
 				is_changing = true;
 			}
 			
-			private var wait_time:Timer = new Timer(1000,1);
+			private var wait_time:Timer = new Timer(1500,1);
 			private function moveFinished(event:EffectEvent):void{
 				var i:int = 0;
 				
@@ -190,31 +191,27 @@
 				this.cloud5.visible = false;
 				this.cloud6.visible = false;
 				this.cloud7.visible = false;
-				//this.middle.visible = false;
+				this.middle.visible = false;
+				
 				
 				var zoomScale:Parallel = new Parallel();
 				zoomScale.duration = 600;
 				var zoomx:Zoom = new Zoom();
 				
-				zoomx.zoomHeightFrom = 0.5 / 3;
+				zoomx.zoomHeightFrom = 0.167;
 				zoomx.zoomHeightTo = 0.5;
-				zoomx.zoomWidthFrom = 0.5 / 3;
+				zoomx.zoomWidthFrom = 0.167;
 				zoomx.zoomWidthTo = 0.5;
 				zoomx.originX = this.x + this.width / 2;
 				zoomx.originY = this.y + this.height / 2;
 				//zoomScale.addEventListener(EffectEvent.EFFECT_END,scaleFinished);
 				zoomScale.addChild(zoomx);
-				this.middle.visible = true;
 				zoomScale.play([middle]);
+				this.middle.visible = true;
 				
 				wait_time.addEventListener(TimerEvent.TIMER,playWait);
 				wait_time.start();
 				//wait_time.start();
-			}
-			
-			private function scaleFinished(event:EffectEvent):void{
-				
-				
 			}
 			
 			private function playWait(event:TimerEvent):void{
@@ -229,10 +226,10 @@
 				this.cloud5.visible = true;
 				this.cloud6.visible = true;
 				this.cloud7.visible = true;
+				is_changing = false;
 				//var i:int = 0;
-				for(i = 0; i < 1000000; i++){}
+				//for(i = 0; i < 1000000; i++){}
 				wait_time.stop();
-				
 			}
 			
 			private function tagsGetRelatedEventHandler(event:FlickrResultEvent):void {
