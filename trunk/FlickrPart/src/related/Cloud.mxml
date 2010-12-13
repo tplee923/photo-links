@@ -187,7 +187,5 @@
 		<mx:Image  id="image9" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
 	
-		
-	
 </s:Group>
 
