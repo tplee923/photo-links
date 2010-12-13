@@ -176,6 +176,17 @@
 				this.cloud7.visible = true;
 				this.middle.visible = true;
 				this.tag = tag_store;
+				
+				var zoomScale:Parallel = new Parallel();
+				var zoomx:Zoom = new Zoom();
+				zoomx.zoomHeightFrom = 0.5 / 3;
+				zoomx.zoomHeightTo = 0.5;
+				zoomx.zoomWidthFrom = 0.5 / 3;
+				zoomx.zoomWidthTo = 0.5;
+				zoomx.originX = this.x + this.width / 2;
+				zoomx.originY = this.y + this.height / 2;
+				zoomScale.addChild(zoomx);
+				zoomScale.play([middle]);
 			}
 			
 			private function tagsGetRelatedEventHandler(event:FlickrResultEvent):void {
