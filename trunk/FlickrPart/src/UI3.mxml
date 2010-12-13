@@ -22,7 +22,8 @@
 	
 		<mx:Image verticalAlign="middle" horizontalAlign="center" id="image" horizontalCenter="0" width="{this.width}" height="{this.height*.75}" source="{horizontalList.selectedItem.content.url}"/>
 		
-		<mx:Button x="{this.buttonX}" y="{this.buttonY}" id="otherPhotosButton" label="Other photoes of this author" click="requestPhotos(event)"/>
+		<mx:LinkButton x="0" y="{this.buttonY}" id="otherPhotosButton" click="requestPhotos(event)"/>
+	
 		<s:Button id="closeButton" width="60" x="0" y="0" label="Close" click="closeEventHandler(event)"  chromeColor="#000000" focusColor="#70B2EE" color="#FFFFFF"/>
 		
 		<mx:HorizontalList id="horizontalList" width="100%" height="100%"
@@ -83,6 +84,7 @@
 				
 				this._photo = value;
 				
+				this.otherPhotosButton.label = "Author: " + this._photo.ownerId;
 				image.source = "http://farm" + value.farmId + ".static.flickr.com/" + value.server
 					+ "/" + value.id + "_" + value.secret + "_z.jpg";
 				
@@ -128,7 +130,7 @@
 			super.height = value;
 //			this.theCanvas.height = value;
 			this.listHeight = value * .85;
-			this.buttonY = (value * .75) * 1.05;
+			this.buttonY = (value * .75) + 8;
 		}
 		
 		[Bindable]
