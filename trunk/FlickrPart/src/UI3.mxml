@@ -188,8 +188,8 @@
 			zoom2.originY = 0;
 			
 			var move:Move = new Move();
-			move.xFrom = 75;//x;
-			move.yFrom = 75;//y;
+			move.xFrom = 0;//x;
+			move.yFrom = 0;//y;
 		    move.xTo = this.origX;
 			move.yTo = this.origY;
 			
