@@ -6,6 +6,7 @@
 		 >
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:Zoom id="cmpZoom" zoomHeightFrom="1.0" zoomHeightTo="0.5" zoomWidthFrom="1.0" zoomWidthTo="0.5" />
 	</fx:Declarations>
 	
 	<fx:Style>
@@ -221,55 +222,21 @@
 				if(event.type == MouseEvent.ROLL_OUT && !zoomFull.isPlaying && !zoomFull2.isPlaying && zoomStatus){
 					//zoomFull.play([this]);
 					zoomFull.play([this]);
-					
-					/*for (i = 0; i < this._clouds.length; ++i) {
-						
-						cloud = this._clouds.getItemAt(i) as Cloud;
-						farAway = new Parallel();
-						var pro1:AnimateProperty = new AnimateProperty();
-						pro1.property = "horizontalCenter";
-						pro1.fromValue = cloud.horizontalCenter as Number;
-						pro1.toValue = (cloud.horizontalCenter as Number) / 2;
-						
-						var pro2:AnimateProperty = new AnimateProperty();
-						pro2.property = "verticalCenter";
-						pro2.fromValue = cloud.verticalCenter as Number;
-						pro2.toValue = (cloud.verticalCenter as Number) / 2;
-						farAway.addChild(pro1);
-						farAway.addChild(pro2);
-						farAway.duration = theDuration;
-						farAway.play([cloud]);
-					}*/
-					
 					zoomStatus = false;
 				}
 				else if(event.type == MouseEvent.ROLL_OVER && !zoomFull.isPlaying && !zoomFull2.isPlaying && !zoomStatus){
 					//zoomFull2.play([this]);
 					zoomFull2.play([this]);
-					
-					/*for (i = 0; i < this._clouds.length; ++i) {
-						
-						cloud = this._clouds.getItemAt(i) as Cloud;
-						farAway = new Parallel();
-						var pro3:AnimateProperty = new AnimateProperty();
-						pro3.property = "horizontalCenter";
-						pro3.fromValue = cloud.horizontalCenter as Number;
-						pro3.toValue = (cloud.horizontalCenter as Number) * 2;
-						
-						var pro4:AnimateProperty = new AnimateProperty();
-						pro4.property = "verticalCenter";
-						pro4.fromValue = cloud.verticalCenter as Number;
-						pro4.toValue = (cloud.verticalCenter as Number) * 2;
-						farAway.addChild(pro3);
-						farAway.addChild(pro4);
-						farAway.duration = theDuration;
-						farAway.play([cloud]);
-					}*/
-					
 					zoomStatus = true;
 				}
 				
 				// TODO Auto-generated method stub
+			}
+			
+			//private var cmpZoom:Zoom;
+			private function zoomInit():void {
+				
+				//zoom.play([middle]);
 			}
 
 		]]>
@@ -301,8 +268,10 @@
 		}
 	</fx:Style>
 	
-	<component:UI2 id="middle" height="300" width="300" verticalCenter="0" horizontalCenter="0" styleName="ui2Style" 
+	
+	
+	<component:UI2 id="middle" height="600" width="600" verticalCenter="0" horizontalCenter="0" styleName="ui2Style" 
 				   rollOut="doZoom(event)"
-				   rollOver="doZoom(event)" visible="false" includeInLayout="false"/>
+				   rollOver="doZoom(event)" visible="false" includeInLayout="false" creationCompleteEffect="{cmpZoom}" />
 
 </s:Group>
