@@ -175,11 +175,12 @@
 				is_changing = true;
 			}
 			
-			private var wait_time:Timer = new Timer(800,1);
+			private var wait_time:Timer = new Timer(1000,1);
 			private function moveFinished(event:EffectEvent):void{
 				var i:int = 0;
 				
 				this.tag = tag_store;
+				
 				for(i=0;i<9;i++)this.middle.set_visiable(i,false);
 				this.cloud0.visible = false;
 				this.cloud1.visible = false;
@@ -189,7 +190,22 @@
 				this.cloud5.visible = false;
 				this.cloud6.visible = false;
 				this.cloud7.visible = false;
-				this.middle.visible = false;
+				//this.middle.visible = false;
+				
+				var zoomScale:Parallel = new Parallel();
+				zoomScale.duration = 600;
+				var zoomx:Zoom = new Zoom();
+				
+				zoomx.zoomHeightFrom = 0.5 / 3;
+				zoomx.zoomHeightTo = 0.5;
+				zoomx.zoomWidthFrom = 0.5 / 3;
+				zoomx.zoomWidthTo = 0.5;
+				zoomx.originX = this.x + this.width / 2;
+				zoomx.originY = this.y + this.height / 2;
+				//zoomScale.addEventListener(EffectEvent.EFFECT_END,scaleFinished);
+				zoomScale.addChild(zoomx);
+				this.middle.visible = true;
+				zoomScale.play([middle]);
 				
 				wait_time.addEventListener(TimerEvent.TIMER,playWait);
 				wait_time.start();
@@ -197,6 +213,12 @@
 			}
 			
 			private function scaleFinished(event:EffectEvent):void{
+				
+				
+			}
+			
+			private function playWait(event:TimerEvent):void{
+				
 				var i:int =0;
 				for(i=0;i<9;i++)this.middle.set_visiable(i,true);
 				this.cloud0.visible = true;
@@ -207,26 +229,7 @@
 				this.cloud5.visible = true;
 				this.cloud6.visible = true;
 				this.cloud7.visible = true;
-				
-			}
-			
-			private function playWait(event:TimerEvent):void{
-				var zoomScale:Parallel = new Parallel();
-				zoomScale.duration = 1000;
-				var zoomx:Zoom = new Zoom();
-				
-				zoomx.zoomHeightFrom = 0.5 / 3;
-				zoomx.zoomHeightTo = 0.5;
-				zoomx.zoomWidthFrom = 0.5 / 3;
-				zoomx.zoomWidthTo = 0.5;
-				zoomx.originX = this.x + this.width / 2;
-				zoomx.originY = this.y + this.height / 2;
-				zoomScale.addEventListener(EffectEvent.EFFECT_END,scaleFinished);
-				zoomScale.addChild(zoomx);
-				this.middle.visible = true;
-				zoomScale.play([middle]);
-				
-				var i:int = 0;
+				//var i:int = 0;
 				for(i = 0; i < 1000000; i++){}
 				wait_time.stop();
 				
