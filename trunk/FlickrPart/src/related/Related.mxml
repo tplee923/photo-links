@@ -76,6 +76,9 @@
 			import com.adobe.webapis.flickr.PhotoTag;
 			import com.adobe.webapis.flickr.events.FlickrResultEvent;
 			
+			import flash.events.TimerEvent;
+			import flash.utils.Timer;
+			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.effects.AnimateProperty;
@@ -84,6 +87,8 @@
 			import mx.effects.Parallel;
 			import mx.effects.Zoom;
 			import mx.events.EffectEvent;
+			
+			import org.osmf.events.TimeEvent;
 			
 			import spark.components.TextInput;
 			
@@ -120,9 +125,13 @@
 				}
 				
 				this._flickrService.tags.getRelated(this._tag);
+				var i:int = 0;
+				//for(i=0;i<9;i++)
+				//	this.middle.set_visiable(i,true);
 			}
 			
 			private var tag_store:String;
+			private var is_changing:Boolean = false;
 			private function cloudsClickedEventHandler(event:MouseEvent):void {
 				//this.testLabel.text = "clicked";
 				//this.testLabel.text = event.currentTarget.tag;
@@ -163,9 +172,33 @@
 				//cl.y = origY;
 				//cl.visible = false;
 				tag_store = event.currentTarget.tag;
+				is_changing = true;
 			}
 			
+			private var wait_time:Timer = new Timer(800,1);
 			private function moveFinished(event:EffectEvent):void{
+				var i:int = 0;
+				
+				this.tag = tag_store;
+				for(i=0;i<9;i++)this.middle.set_visiable(i,false);
+				this.cloud0.visible = false;
+				this.cloud1.visible = false;
+				this.cloud2.visible = false;
+				this.cloud3.visible = false;
+				this.cloud4.visible = false;
+				this.cloud5.visible = false;
+				this.cloud6.visible = false;
+				this.cloud7.visible = false;
+				this.middle.visible = false;
+				
+				wait_time.addEventListener(TimerEvent.TIMER,playWait);
+				wait_time.start();
+				//wait_time.start();
+			}
+			
+			private function scaleFinished(event:EffectEvent):void{
+				var i:int =0;
+				for(i=0;i<9;i++)this.middle.set_visiable(i,true);
 				this.cloud0.visible = true;
 				this.cloud1.visible = true;
 				this.cloud2.visible = true;
@@ -174,19 +207,29 @@
 				this.cloud5.visible = true;
 				this.cloud6.visible = true;
 				this.cloud7.visible = true;
-				this.middle.visible = true;
-				this.tag = tag_store;
 				
+			}
+			
+			private function playWait(event:TimerEvent):void{
 				var zoomScale:Parallel = new Parallel();
+				zoomScale.duration = 1000;
 				var zoomx:Zoom = new Zoom();
+				
 				zoomx.zoomHeightFrom = 0.5 / 3;
 				zoomx.zoomHeightTo = 0.5;
 				zoomx.zoomWidthFrom = 0.5 / 3;
 				zoomx.zoomWidthTo = 0.5;
 				zoomx.originX = this.x + this.width / 2;
 				zoomx.originY = this.y + this.height / 2;
+				zoomScale.addEventListener(EffectEvent.EFFECT_END,scaleFinished);
 				zoomScale.addChild(zoomx);
+				this.middle.visible = true;
 				zoomScale.play([middle]);
+				
+				var i:int = 0;
+				for(i = 0; i < 1000000; i++){}
+				wait_time.stop();
+				
 			}
 			
 			private function tagsGetRelatedEventHandler(event:FlickrResultEvent):void {
@@ -224,7 +267,9 @@
 						//cloud.y = Math.sin(i * 3.1415 * 2 / tagCount) * this._radius - cloud.height / 2 + this.height / 2;
 						
 						cloud.tag = photoTag.tag;
-						cloud.visible = true;
+						if(!is_changing){
+							cloud.visible = true;
+						}
 					}
 					
 				} else {
