@@ -79,15 +79,21 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.effects.AnimateProperty;
+			import mx.effects.Fade;
 			import mx.effects.Move;
 			import mx.effects.Parallel;
 			import mx.effects.Zoom;
 			import mx.events.EffectEvent;
 			
+			import spark.components.TextInput;
+			
 			private var _clouds:ArrayCollection;
 			private var _flickrService:FlickrService;
 			private var _CLOUD_TOTAL:Number = 8;
 			private var _radius:Number = 300;
+			
+			//public var searchBar:TextInput;
+			public var searchBar:TextInput;
 			
 			private var _tag:String;
 			[Bindable]
@@ -219,6 +225,8 @@
 			private var zoomFull2:Parallel = null;
 			private var zoomStatus:Boolean = false;
 			private var theDuration:Number = 300;
+			private var fadeIn:Fade = null;
+			private var fadeOut:Fade = null;
 			protected function doZoom(event:MouseEvent):void
 			{
 				/*var center_x:int = this.x + this.width / 2;
@@ -266,6 +274,19 @@
 					zoomFull2.addChild(zoom2);
 					//zoomFull.addChild(move);
 				}
+				if (fadeIn == null) {
+					fadeIn = new Fade();
+					fadeIn.alphaFrom = 0;
+					fadeIn.alphaTo = 1;
+					fadeIn.duration = theDuration;
+				}
+				
+				if (fadeOut == null) {
+					fadeOut = new Fade();
+					fadeOut.alphaFrom = 1;
+					fadeOut.alphaTo = 0;
+					fadeOut.duration = theDuration;
+				}
 				
 				var i:Number = 0;
 				var farAway:Parallel;
@@ -274,11 +295,15 @@
 					//zoomFull.play([this]);
 					zoomFull.play([this]);
 					zoomStatus = false;
+					//searchBar.text = "laskdjflkasdjf";
+					fadeIn.play([searchBar]);
 				}
 				else if(event.type == MouseEvent.ROLL_OVER && !zoomFull.isPlaying && !zoomFull2.isPlaying && !zoomStatus){
 					//zoomFull2.play([this]);
 					zoomFull2.play([this]);
 					zoomStatus = true;
+					//searchBar.text = "laskdjflkasdjf";
+					fadeOut.play([searchBar]);
 				}
 				
 				// TODO Auto-generated method stub
