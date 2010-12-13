@@ -153,7 +153,9 @@
 	
 	<!--<s:Label id="testLabel" text="aaaa" x="200" y="200" />-->
 	
-	<s:Label id="tagLabel" color="#FFFFFF" horizontalCenter="0" verticalCenter="60" styleName="myLabel" />
+	<s:BorderContainer width="{this.image0.width+4}" height="{this.tagLabel.height+4}" horizontalCenter="0" verticalCenter="45" borderColor="0xffffff">
+		<s:Label id="tagLabel" color="#000000" horizontalCenter="0" verticalCenter="0" styleName="myLabel" />
+	</s:BorderContainer>
 	<s:BorderContainer width="{this.image0.width+4}" height="{this.image0.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image0" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
