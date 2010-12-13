@@ -30,6 +30,8 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
+			import mx.effects.Parallel;
+			import mx.effects.Rotate;
 			
 			private var _flickrService:FlickrService = null;
 			private var _IMAGE_COUNT:Number = 10;
@@ -63,11 +65,10 @@
 			
 			public function getThumbnail(photo:Photo):String {
 				return "http://farm" + photo.farmId + ".static.flickr.com/" + photo.server
-					+ "/" + photo.id + "_" + photo.secret + "_t.jpg";
+					+ "/" + photo.id + "_" + photo.secret + "_s.jpg";
 			}
 			
 			private function photosSearchEventHandler(event:FlickrResultEvent):void {
-				//this.testLabel.text = "bb";
 				var i:Number;
 				var image:Image;
 				if (this._images == null) {
@@ -83,6 +84,8 @@
 					this._images.addItem(this.image8);
 					this._images.addItem(this.image9);
 				}
+				
+				//this.randomizeImagePosition();
 
 				//this.testLabel.text = "bbbb";
 				for (i = 0; i < this._IMAGE_COUNT; ++i)
@@ -105,6 +108,45 @@
 				}
 				
 				//this.testLabel.text = "done";
+			}
+			
+			private function randomizeImagePosition():void {
+				if (this._images == null) {
+					this._images = new ArrayCollection();
+					this._images.addItem(this.image0);
+					this._images.addItem(this.image1);
+					this._images.addItem(this.image2);
+					this._images.addItem(this.image3);
+					this._images.addItem(this.image4);
+					this._images.addItem(this.image5);
+					this._images.addItem(this.image6);
+					this._images.addItem(this.image7);
+					this._images.addItem(this.image8);
+					this._images.addItem(this.image9);
+				}
+				
+				var i:Number;
+				for (i = 0; i < this._images.length; ++i) {
+					var animation:Parallel = new Parallel();
+					var rotate:Rotate = new Rotate();
+					rotate.angleFrom = (Math.random() - 0.5) * 20;
+					rotate.angleTo = rotate.angleFrom;
+					animation.addChild(rotate);
+
+					animation.play([this._images[i]]);
+				}
+			}
+			
+			private function img_httpStatus(evt:HTTPStatusEvent):void {
+				switch (evt.status) {
+					case 200:
+						evt.currentTarget.visible = true;
+						break;
+					//case 404:
+						// Invalid image, PANIC!
+						//Alert.show("invalid image!", evt.status.toString());
+						//break;
+				}
 			}
 		]]>
 	</fx:Script>
@@ -140,7 +182,10 @@
 		<mx:Image id="image8" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
 	<s:BorderContainer width="{this.image9.width+4}" height="{this.image9.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
-		<mx:Image id="image9" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
+		<mx:Image  id="image9" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
+	
+		
+	
 </s:Group>
 

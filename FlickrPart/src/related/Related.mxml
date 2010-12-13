@@ -84,7 +84,7 @@
 			private var _clouds:ArrayCollection;
 			private var _flickrService:FlickrService;
 			private var _CLOUD_TOTAL:Number = 8;
-			private var _radius:Number = 250;
+			private var _radius:Number = 300;
 			
 			private var _tag:String;
 			[Bindable]
