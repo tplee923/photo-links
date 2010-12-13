@@ -309,7 +309,7 @@ package component{
 			label.y =  5 * this.height / 6 + this.height / 18 + this.height / 36;
 			label.width = 2 * width / 6;
 			label.height = this.height / 18;
-			label.setStyle("color","white");
+			//label.setStyle("color","white");
 			
 			this.addElement(button_back);
 			this.addElement(button_next);
