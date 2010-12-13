@@ -126,8 +126,12 @@ package component{
 		}
 		
 		public function set_tag(t:String):void{
+			
 			tag = t;
 			flickr.photos.search("", tag, "any", "", null, null, null, null, -1, "date-posted-desc", -1, "", -1, -1, -1, "", "", "", "","", "", "", false, "", "", -1, -1, "", 100, 1);
+			
+			this.visible = true;
+			this.includeInLayout = true;
 		}
 		
 		public function photosSearchEventHandler(event:FlickrResultEvent):void {

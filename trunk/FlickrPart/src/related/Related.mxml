@@ -114,8 +114,8 @@
 			}
 			
 			private function cloudsClickedEventHandler(event:MouseEvent):void {
-				this.testLabel.text = "clicked";
-				this.testLabel.text = event.currentTarget.tag;
+				//this.testLabel.text = "clicked";
+				//this.testLabel.text = event.currentTarget.tag;
 				this.tag = event.currentTarget.tag;
 			}
 			
@@ -237,7 +237,7 @@
 	<related:Cloud id="cloud6" visible="false" width="100" height="100" />
 	<related:Cloud id="cloud7" visible="false" width="100" height="100" />
 
-	<s:Label id="testLabel" color="#FFFFFF" text="Label" x="400" y="400" />
+	<!--<s:Label id="testLabel" color="#FFFFFF" text="Label" x="400" y="400" />-->
 	
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
@@ -254,6 +254,6 @@
 	
 	<component:UI2 id="middle" height="300" width="300" verticalCenter="0" horizontalCenter="0" styleName="ui2Style" 
 				   rollOut="doZoom(event)"
-				   rollOver="doZoom(event)"/>
+				   rollOver="doZoom(event)" visible="false" includeInLayout="false"/>
 
 </s:Group>

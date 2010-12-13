@@ -2,7 +2,7 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:related="related.*"
-			   height="100%" width="100%" backgroundColor="#000000" >
+			   height="100%" width="100%" backgroundColor="#000000" creationComplete="myinitialize()" >
 
 	<!--
 	1c913052ca13a4af351c76b792598e67
@@ -14,9 +14,37 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.effects.Move;
+			import mx.effects.Parallel;
 			import mx.events.FlexEvent;
+			
+			private var isCentered:Boolean = true;
+			private var moveToCorner:Parallel;
 			public function search(event:FlexEvent):void {
+				if (isCentered) {
+					if (moveToCorner == null) {
+						moveToCorner = new Parallel();
+						
+						var move:Move = new Move();
+						move.xFrom = textInput.x;
+						move.xTo = 20;
+						move.yFrom = textInput.y;
+						move.yTo = 20;
+						moveToCorner.addChild(move);
+						
+					}
+
+					isCentered = false;
+					moveToCorner.play([textInput]);
+				}
 				(related as Related).tag  = this.textInput.text;
+			}
+			
+			private function myinitialize():void {
+				//this.textInput.verticalCenter = 0;
+				//this.textInput.horizontalCenter = 0;
+				this.textInput.x = this.width / 2 - this.textInput.width / 2;
+				this.textInput.y = this.height / 2 - this.textInput.height / 2;
 			}
 		]]>
 	</fx:Script>
