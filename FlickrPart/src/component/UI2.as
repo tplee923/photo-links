@@ -18,6 +18,7 @@ package component{
 	import mx.effects.Move;
 	import mx.effects.Parallel;
 	import mx.effects.Zoom;
+	import mx.graphics.SolidColor;
 	
 	import spark.components.Button;
 	import spark.components.Group;
@@ -57,7 +58,28 @@ package component{
 		//private var zoomFull:Parallel;
 		private var zoomOriginalScale:Number = 0.2;
 		
+		private var background:Rect;
+		
+		override public function set width(value:Number):void {
+			super.width = value;
+			background.width = value;
+		}
+		
+		override public function set height(value:Number):void {
+			super.height = value;
+			background.height = value;
+		}
+		
 		public function UI2(){
+			
+			background = new Rect();
+			background.width = this.width;
+			background.height = this.height;
+			var white:SolidColor = new SolidColor();
+			white.color = 0xffffff;
+			background.fill = white;
+			this.addElement(background);
+			
 			animation = new Parallel();
 			var zoom:Zoom = new Zoom();
 			zoom.zoomWidthFrom = zoomOriginalScale;
