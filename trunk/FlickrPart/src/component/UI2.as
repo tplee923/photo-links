@@ -161,8 +161,8 @@ package component{
 			}
 			
 			if(photos.length > 0){
-				image0.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
-				image0.y = this.y + 0 * 2 * this.height / 6 + this.height / 18;
+				image0.x = 0 * 2 * this.width / 6 + this.width / 12;
+				image0.y = 0 * 2 * this.height / 6 + this.height / 18;
 				image0.width = this.width;// / 6;
 				image0.height = this.height;// / 6;
 				// image0.source = source[0];
@@ -173,8 +173,8 @@ package component{
 			}
 			
 			if(photos.length > 1){
-				image1.x = this.x + 1 * 2 * this.width / 6 + this.width / 12;
-				image1.y = this.y + 0 * 2 * this.height / 6 + this.height / 18;
+				image1.x = 1 * 2 * this.width / 6 + this.width / 12;
+				image1.y = 0 * 2 * this.height / 6 + this.height / 18;
 				image1.width = this.width;
 				image1.height = this.height;
 				//image1.source = source[1];
@@ -183,8 +183,8 @@ package component{
 			}
 			
 			if(photos.length > 2){
-				image2.x = this.x + 2 * 2 * this.width / 6 + this.width / 12;
-				image2.y = this.y + 0 * 2 * this.height / 6 + this.height / 18;
+				image2.x = 2 * 2 * this.width / 6 + this.width / 12;
+				image2.y = 0 * 2 * this.height / 6 + this.height / 18;
 				image2.width = this.width;
 				image2.height = this.height;
 				animation.play([image2]);
@@ -192,8 +192,8 @@ package component{
 			}
 			
 			if(photos.length > 3){
-				image3.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
-				image3.y = this.y + 1 * 2 * this.height / 6 + this.height / 18;
+				image3.x = 0 * 2 * this.width / 6 + this.width / 12;
+				image3.y = 1 * 2 * this.height / 6 + this.height / 18;
 				image3.width = this.width;
 				image3.height = this.height;
 				animation.play([image3]);
@@ -201,8 +201,8 @@ package component{
 			}
 			
 			if(photos.length > 4){
-				image4.x = this.x + 1 * 2 * this.width / 6 + this.width / 12;
-				image4.y = this.y + 1 * 2 * this.height / 6 + this.height / 18;
+				image4.x = 1 * 2 * this.width / 6 + this.width / 12;
+				image4.y = 1 * 2 * this.height / 6 + this.height / 18;
 				image4.width = this.width;//6;
 				image4.height = this.height;// / 6;
 				//image4.source = source[4];
@@ -211,8 +211,8 @@ package component{
 			}
 			
 			if(photos.length > 5){
-				image5.x = this.x + 2 * 2 * this.width / 6 + this.width / 12;
-				image5.y = this.y + 1 * 2 * this.height / 6 + this.height / 18;
+				image5.x = 2 * 2 * this.width / 6 + this.width / 12;
+				image5.y = 1 * 2 * this.height / 6 + this.height / 18;
 				image5.width = this.width ;
 				image5.height = this.height ;
 				animation.play([image5]);
@@ -220,8 +220,8 @@ package component{
 			}
 			
 			if(photos.length > 6){
-				image6.x = this.x + 0 * 2 * this.width / 6 + this.width / 12;
-				image6.y = this.y + 2 * 2 * this.height / 6 + this.height / 18;
+				image6.x = 0 * 2 * this.width / 6 + this.width / 12;
+				image6.y = 2 * 2 * this.height / 6 + this.height / 18;
 				image6.width = this.width ;
 				image6.height = this.height ;
 				animation.play([image6]);
@@ -229,8 +229,8 @@ package component{
 			}
 			
 			if(photos.length > 7){
-				image7.x = this.x + 1 * 2 * this.width / 6 + this.width / 12;
-				image7.y = this.y + 2 * 2 * this.height / 6 + this.height / 18;
+				image7.x = 1 * 2 * this.width / 6 + this.width / 12;
+				image7.y = 2 * 2 * this.height / 6 + this.height / 18;
 				image7.width = this.width ;
 				image7.height = this.height ;
 				animation.play([image7]);
@@ -238,8 +238,8 @@ package component{
 			}
 			
 			if(photos.length > 8){
-				image8.x = this.x + 2 * 2 * this.width / 6 + this.width / 12;
-				image8.y = this.y + 2 * 2 * this.height / 6 + this.height / 18;
+				image8.x = 2 * 2 * this.width / 6 + this.width / 12;
+				image8.y = 2 * 2 * this.height / 6 + this.height / 18;
 				image8.width = this.width ;
 				image8.height = this.height ;
 				animation.play([image8]);
@@ -252,8 +252,8 @@ package component{
 			//button_back.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
 			//button_back.width = this.width / 12;
 			//button_back.height = this.height / 18;
-			button_back.x = this.x + 0.125 * this.width / 6;
-			button_back.y = this.y + 2.5 * this.height / 6;
+			button_back.x = 0.125 * this.width / 6;
+			button_back.y = 2.5 * this.height / 6;
 			button_back.width = this.width / 24;
 			button_back.height = this.height / 9;
 			button_back.label = "<";
@@ -265,8 +265,8 @@ package component{
 			//button_next.width = this.width / 12;
 			//button_next.height = this.height / 18;
 			
-			button_next.x = this.x + 0.125 * this.width / 6 + 5.5 * this.width / 6;
-			button_next.y = this.y + 2.5 * this.height / 6;
+			button_next.x = this.width / 48 + 5.5 * this.width / 6;
+			button_next.y = 2.5 * this.height / 6;
 			button_next.width = this.width / 24;
 			button_next.height = this.height / 9;
 			button_next.label = ">";
@@ -278,8 +278,8 @@ package component{
 			}
 			
 			
-			label.x = this.x + 2 * this.width / 6;
-			label.y = this.y + 5 * this.height / 6 + this.height / 18 + this.height / 36;
+			label.x =  2 * this.width / 6;
+			label.y =  5 * this.height / 6 + this.height / 18 + this.height / 36;
 			label.width = 2 * width / 6;
 			label.height = this.height / 18;
 			label.setStyle("color","white");
@@ -360,8 +360,8 @@ package component{
 				ui3.origX = ui3.x;
 				move.yFrom = ui3.y;
 				ui3.origY = ui3.y;
-				move.xTo = 75;
-				move.yTo = 75;
+				move.xTo = 0;
+				move.yTo = 0;
 				
 				zoomFull.addChild(zoom2);
 				zoomFull.addChild(move);
