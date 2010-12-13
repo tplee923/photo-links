@@ -76,10 +76,10 @@
 			import com.adobe.webapis.flickr.events.FlickrResultEvent;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.effects.Move;
 			import mx.effects.Parallel;
 			import mx.effects.Zoom;
-			import mx.controls.Alert;
 			
 			private var _clouds:ArrayCollection;
 			private var _flickrService:FlickrService;
@@ -160,9 +160,22 @@
 				}
 			}
 			
+			
 			protected function doZoom(event:MouseEvent):void
 			{
+				var center_x:int = this.x + this.width / 2;
+				var center_y:int = this.y + this.height / 2;
 				
+				var x:int = this.mouseX;
+				var y:int = this.mouseY;
+				
+				var delta_x:int = x - center_x;
+				if(delta_x < 0) delta_x = - delta_x;
+				var delta_y:int = y - center_y;
+				if(delta_y < 0) delta_y = - delta_y;
+				
+				var judge1:Boolean = (delta_x * delta_x + delta_y * delta_y < 200 * 200);
+				var judge2:Boolean = (delta_x * delta_x + delta_y * delta_y > 200 * 200);
 				if(event.type == MouseEvent.ROLL_OUT){
 					var zoomFull:Parallel = new Parallel();
 					var zoom:Zoom = new Zoom();
@@ -233,7 +246,7 @@
 		}
 	</fx:Style>
 	
-	<component:UI2 id="middle" height="300" width="300" verticalCenter="-75" horizontalCenter="-75" styleName="ui2Style" 
+	<component:UI2 id="middle" height="300" width="300" verticalCenter="0" horizontalCenter="0" styleName="ui2Style" 
 				   rollOut="doZoom(event)"
 				   rollOver="doZoom(event)"/>
 
