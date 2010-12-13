@@ -21,10 +21,11 @@
 		<!-- "http://farm2.static.flickr.com/5283/5249873849_ee82e133bc_m.jpg" -->
 	
 		<mx:Image verticalAlign="middle" horizontalAlign="center" id="image" horizontalCenter="0" width="{this.width}" height="{this.height*.75}" source="{horizontalList.selectedItem.content.url}"/>
+	<s:Label visible="false" id="photoIDLabel" text="{horizontalList.selectedItem.link}" />
 		
 		<mx:LinkButton fontFamily="Arial Black" x="0" y="{this.buttonY}" id="otherPhotosButton" click="requestPhotos(event)" visible="false"  />
 		<s:Button id="closeButton" width="60" x="0" y="0" label="Close" click="closeEventHandler(event)"  chromeColor="#000000" focusColor="#70B2EE" color="#FFFFFF" visible="false" />
-	<mx:LinkButton visible="false" id="photoPage" click="thePhotoPage()" label="View Flickr Photo Page" fontFamily="Arial Black" x="{this.width - photoPage.width}" y="{this.buttonY}" />
+		<mx:LinkButton visible="false" id="photoPage" click="thePhotoPage()" label="View Flickr Photo Page" fontFamily="Arial Black" x="{this.width - photoPage.width}" y="{this.buttonY}" />
 		
 		<mx:HorizontalList id="horizontalList" width="100%" height="100%"
 						   dataProvider="{photoFeed}" columnCount="8" rowCount="1" x="0" y="{this.listHeight}" visible="false" includeInLayout="false" >
@@ -80,9 +81,13 @@
 				return this._photo;
 			}
 			
+			public function setPhotoID(value:String):void {
+				photoID = value;
+			}
+			
 			private var photoID:String;
 			private function thePhotoPage():void {
-				navigateToURL(new URLRequest("http://www.flickr.com/photos/" + this._photo.ownerId + "/" + this.photoID + "/"));
+				navigateToURL(new URLRequest(photoIDLabel.text?photoIDLabel.text:("http://www.flickr.com/photos/" + this._photo.ownerId + "/" + this.photoID + "/")));
 			}
 			public function set photo(value:Photo):void {
 				//if (!this.buttonListenerAdded) {
