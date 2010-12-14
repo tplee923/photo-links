@@ -45,7 +45,7 @@ package component{
 		protected var button_next:Image;
 		protected var button_back:Image;
 		protected var label:Label;
-		protected var tagLabel:Label;
+		protected var tagLabel:spark.components.Label;//Label;
 		
 		//protected var testImage:Image;
 		
@@ -122,7 +122,7 @@ package component{
 			button_back.addEventListener(MouseEvent.CLICK,mouseClickOnBack);
 			//this.addElement(button_back);
 			label = new Label();
-			tagLabel=new Label();
+			tagLabel=new spark.components.Label();
 			
 			var textFormat:TextFormat = new TextFormat();
 			textFormat.font = "Arial Black";
