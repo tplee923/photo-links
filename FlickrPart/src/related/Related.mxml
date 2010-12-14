@@ -141,7 +141,7 @@
 				//	this.middle.set_visiable(i,true);
 			}
 			
-			private var time_count:Timer = new Timer(3000);
+			private var time_count:Timer = new Timer(2000);
 			private var mouse_x:int;
 			private var mouse_y:int;
 			private var num:int;
@@ -160,6 +160,7 @@
 			}
 			
 			private function check_Mouse(event:TimerEvent):void{
+				var imag:Image = cloud_x._images.getItemAt(cloud_x._current) as Image;
 				var delta_x:int = mouse_x - this.mouseX;
 				var delta_y:int = mouse_y - this.mouseY;
 				if(delta_x < 0) delta_x = - delta_x;
@@ -178,9 +179,6 @@
 					//if(count_m==3){
 						//time_count.stop();
 						num = (cloud_x._current + 1) % 10; 
-						
-						var imag:Image = cloud_x._images.getItemAt(cloud_x._current) as Image;
-						
 						
 						var zoomMove:Parallel = new Parallel();
 						zoomMove.duration = 600;
@@ -617,6 +615,18 @@
 				// TODO Auto-generated method stub
 			}
 			
+			public function set_visible(i:int,flag:Boolean):void{
+				switch(i){
+					case 0:this.cloud0.visible = flag;break;
+					case 1:this.cloud1.visible = flag;break;
+					case 2:this.cloud2.visible = flag;break;
+					case 3:this.cloud3.visible = flag;break;
+					case 4:this.cloud4.visible = flag;break;
+					case 5:this.cloud5.visible = flag;break;
+					case 6:this.cloud6.visible = flag;break;
+					case 7:this.cloud7.visible = flag;break;
+				}
+			}
 			//private var cmpZoom:Zoom;
 			private function zoomInit():void {
 				
