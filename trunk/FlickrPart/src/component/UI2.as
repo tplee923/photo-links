@@ -11,23 +11,22 @@ package component{
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Matrix;
-	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	import flash.utils.setTimeout;
-	
+	import flash.text.TextFormat;
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.controls.Image;
 	import mx.controls.Label;
+	import mx.core.*;
 	import mx.effects.Move;
 	import mx.effects.Parallel;
 	import mx.effects.Zoom;
 	import mx.graphics.SolidColor;
 	
-	import spark.components.Button;
+	//import spark.components.Button;
 	import spark.components.Group;
 	import spark.primitives.Rect;
-	
 	
 	public class UI2 extends spark.components.Group
 	{
@@ -43,8 +42,8 @@ package component{
 		protected var image7:UI3;
 		protected var image8:UI3;
 		
-		protected var button_next:Button;
-		protected var button_back:Button;
+		protected var button_next:Image;
+		protected var button_back:Image;
 		protected var label:Label;
 		protected var tagLabel:Label;
 		
@@ -64,6 +63,14 @@ package component{
 		private var zoomOriginalScale:Number = 0.2;
 		
 		private var background:Rect;
+		
+		[Embed(source="assets/right-arrow.png")]
+		private  var rightImgCls:Class;
+		
+		[Embed(source="assets/left-arrow.png")]
+		private  var leftImgCls:Class;
+	
+
 		
 		override public function set width(value:Number):void {
 			super.width = value;
@@ -104,10 +111,14 @@ package component{
 			tag = new String();
 			photo_index = new Array();
 			//testImage = new Image;
-			button_next = new Button();
+			button_next = new Image();
+			button_next.source = rightImgCls;
+			button_next.buttonMode=true;
 			button_next.addEventListener(MouseEvent.CLICK,mouseClickOnNext);
 			//this.addElement(button_next);
-			button_back = new Button();
+			button_back = new Image();
+			button_back.source = leftImgCls;
+			button_next.buttonMode=true;
 			button_back.addEventListener(MouseEvent.CLICK,mouseClickOnBack);
 			//this.addElement(button_back);
 			label = new Label();
@@ -115,12 +126,10 @@ package component{
 			
 			var textFormat:TextFormat = new TextFormat();
 			textFormat.font = "Arial Black";
-			//textFormat.size = 12;
 			tagLabel.setStyle("fontFamily", "Arial Black");
 			tagLabel.setStyle("fontSize", 22);
 			tagLabel.horizontalCenter = 30;
 			tagLabel.verticalCenter = -275;
-			
 			
 			photos = new ArrayCollection();
 			image0 = new UI3();//new Image();
@@ -160,7 +169,6 @@ package component{
 			image8.addEventListener(MouseEvent.CLICK,mouseClickOn);
 			this.addElement(image8);
 			flickr.addEventListener(FlickrResultEvent.PHOTOS_SEARCH, photosSearchEventHandler);
-			
 		}
 		
 		public function set_tag(t:String):void{
@@ -201,6 +209,7 @@ package component{
 				default: return;
 			}
 		}
+		
 		
 		public function loadImages():void{
 			var i: int = 0;
@@ -314,11 +323,12 @@ package component{
 			//button_back.width = this.width / 12;
 			//button_back.height = this.height / 18;
 			button_back.x = 0.125 * this.width / 6;
-			button_back.y = 2.5 * this.height / 6;
-			button_back.width = this.width / 24;
-			button_back.height = this.height / 9;
-			button_back.label = "<";
+			button_back.y = 2.5 * this.height / 5;
+			//button_back.width = this.width / 24;
+			//button_back.height = this.height / 9;
+			//button_back.label = "<";
 			button_back.enabled = false;
+			button_back.visible = false;
 			button_back.mouseEnabled = false;
 			
 			//button_next.x = this.x + 5 * this.width / 6;
@@ -326,11 +336,12 @@ package component{
 			//button_next.width = this.width / 12;
 			//button_next.height = this.height / 18;
 			
-			button_next.x = this.width / 24 + 5.5 * this.width / 6;
-			button_next.y = 2.5 * this.height / 6;
-			button_next.width = this.width / 24;
-			button_next.height = this.height / 9;
-			button_next.label = ">";
+			button_next.x = this.width / 24 + 5.6 * this.width / 6;
+			button_next.y = 2.5 * this.height / 5;
+			//button_next.width = this.width / 24;
+			//button_next.height = this.height / 9;
+			//button_next.label = ">";
+			
 			button_next.enabled = true;
 			button_next.mouseEnabled = true;
 			if(photos.length <= 9){
@@ -350,6 +361,8 @@ package component{
 			tagLabel.width =  width / 5;
 			tagLabel.height = this.height / 10;
 			
+			//button_next.setStyle("icon",this.rightImgCls);
+			//button_back.setStyle("icon",this.leftImgCls);
 			this.addElement(button_back);
 			this.addElement(button_next);
 			this.addElement(label);
@@ -365,6 +378,7 @@ package component{
 					set_image(i,photo_index[i]);
 					if(button_back.enabled == false){
 						button_back.enabled = true;
+						button_back.visible = true;
 						button_back.mouseEnabled = true;
 					}
 				}
@@ -395,6 +409,7 @@ package component{
 			}
 			if(photo_index[0] == 0){
 				button_back.enabled = false;
+				button_back.visible = false;
 				button_back.mouseEnabled = false;
 			}
 			label.text = (photo_index[0] + 1).toString() + " to " + (photo_index[8] + 1).toString() + " of " + photos.length.toString();
