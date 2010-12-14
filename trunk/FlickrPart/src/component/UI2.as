@@ -45,6 +45,7 @@ package component{
 		protected var button_next:Button;
 		protected var button_back:Button;
 		protected var label:Label;
+		protected var tagLabel:Label;
 		
 		//protected var testImage:Image;
 		
@@ -109,6 +110,7 @@ package component{
 			button_back.addEventListener(MouseEvent.CLICK,mouseClickOnBack);
 			//this.addElement(button_back);
 			label = new Label();
+			tagLabel=new Label();
 			photos = new ArrayCollection();
 			image0 = new UI3();//new Image();
 			image0.visible = false;
@@ -154,7 +156,7 @@ package component{
 			
 			tag = t;
 			flickr.photos.search("", tag, "any", "", null, null, null, null, -1, "date-posted-desc", -1, "", -1, -1, -1, "", "", "", "","", "", "", false, "", "", -1, -1, "", 100, 1);
-			
+			tagLabel.text = t;
 			this.visible = true;
 			this.includeInLayout = true;
 		}
@@ -332,10 +334,15 @@ package component{
 			label.height = this.height / 18;
 			//label.setStyle("color","white");
 			
+			tagLabel.x =  10;
+			tagLabel.y =  10;
+			tagLabel.width =  width / 5;
+			tagLabel.height = this.height / 10;
+			
 			this.addElement(button_back);
 			this.addElement(button_next);
 			this.addElement(label);
-			
+			this.addElement(tagLabel);
 			
 		}
 		
