@@ -350,11 +350,12 @@ package component{
 			}
 			
 			
-			label.x =  2 * this.width / 6;
+			label.x =  2.5 * this.width / 6 + 20;
 			label.y =  5 * this.height / 6 + this.height / 18 + this.height / 36;
-			label.width = 2 * width / 6;
+			label.width = width / 6;
 			label.height = this.height / 18;
 			//label.setStyle("color","white");
+			
 			
 			tagLabel.x =  10;
 			tagLabel.y =  10;
@@ -385,11 +386,17 @@ package component{
 				else{
 					set_image(i,photo_index[i]);
 					button_next.enabled = false;
+					button_next.visible = false;
 					button_next.mouseEnabled = false;
 				}
 			}
 			for(i = 0; i < 9; i++){
-				if(photo_index[i] == photos.length - 1)break;
+				if(photo_index[i] == photos.length - 1){
+					button_next.enabled = false;
+					button_next.visible = false;
+					button_next.mouseEnabled = false;
+					break;
+				}
 			}
 			if(i == 9) i = 8;
 			label.text = (photo_index[0] + 1).toString() + " to " + (photo_index[i] + 1).toString() + " of " + photos.length.toString();
@@ -403,6 +410,7 @@ package component{
 					set_image(i,photo_index[i]);
 					if(button_next.enabled == false){
 						button_next.enabled = true;
+						button_next.visible = true;
 						button_next.mouseEnabled = true;
 					}
 				}
