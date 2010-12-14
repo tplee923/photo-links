@@ -141,7 +141,7 @@
 				//	this.middle.set_visiable(i,true);
 			}
 			
-			private var time_count:Timer = new Timer(2000);
+			private var time_count:Timer = new Timer(3000);
 			private var mouse_x:int;
 			private var mouse_y:int;
 			private var num:int;
@@ -375,6 +375,7 @@
 				//this.testLabel.text = "clicked";
 				//this.testLabel.text = event.currentTarget.tag;
 				var cl:related.Cloud = event.currentTarget as related.Cloud;
+				
 				this.cloud0.visible = false;
 				this.cloud1.visible = false;
 				this.cloud2.visible = false;
@@ -414,11 +415,19 @@
 				is_changing = true;
 			}
 			
-			private var wait_time:Timer = new Timer(1500,1);
+			private var wait_time:Timer = new Timer(2000,1);
 			private function moveFinished(event:EffectEvent):void{
 				var i:int = 0;
 				
 				this.tag = tag_store;
+				/*this.cloud0._current = 9;
+				this.cloud1._current = 9;
+				this.cloud2._current = 9;
+				this.cloud3._current = 9;
+				this.cloud4._current = 9;
+				this.cloud5._current = 9;
+				this.cloud6._current = 9;
+				this.cloud7._current = 9;*/
 				
 				for(i=0;i<9;i++)this.middle.set_visiable(i,false);
 				this.cloud0.visible = false;
@@ -490,12 +499,12 @@
 					
 					for (i = 0; i < this._CLOUD_TOTAL; ++i) {
 						(this._clouds.getItemAt(i) as Cloud).visible = false;
+						//(this._clouds.getItemAt(i) as Cloud)._current = 9;
 					}
 					
-					for (i = 0; i < this._CLOUD_TOTAL; ++i) {
-						(this._clouds.getItemAt(i) as Cloud)._current = 9;
-						current_depth = -2;
-					}
+						
+					//current_depth = -2;
+					
 					
 					if (tagCount > this._CLOUD_TOTAL) {
 						tagCount = this._CLOUD_TOTAL;
