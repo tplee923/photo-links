@@ -128,8 +128,8 @@ package component{
 			textFormat.font = "Arial Black";
 			tagLabel.setStyle("fontFamily", "Arial Black");
 			tagLabel.setStyle("fontSize", 22);
-			tagLabel.horizontalCenter = 30;
-			tagLabel.verticalCenter = -275;
+			tagLabel.horizontalCenter = 0;
+			tagLabel.verticalCenter = -285;
 			
 			photos = new ArrayCollection();
 			image0 = new UI3();//new Image();
@@ -357,10 +357,10 @@ package component{
 			//label.setStyle("color","white");
 			
 			
-			tagLabel.x =  10;
-			tagLabel.y =  10;
-			tagLabel.width =  width / 5;
-			tagLabel.height = this.height / 10;
+			//tagLabel.x =  10;
+			//tagLabel.y =  10;
+			//tagLabel.width =  width / 5;
+			//tagLabel.height = this.height / 10;
 			
 			//button_next.setStyle("icon",this.rightImgCls);
 			//button_back.setStyle("icon",this.leftImgCls);
