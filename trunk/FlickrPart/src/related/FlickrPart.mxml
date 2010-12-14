@@ -17,9 +17,10 @@
 			
 			private var isCentered:Boolean = true;
 			private var moveToCorner:Parallel;
+			private var btnmoveToCorner:Parallel;
 			//private var tag_temp:String;
 			private var wait_time:Timer = new Timer(5000);
-			public function search(event:FlexEvent):void {
+			public function search(event:Event):void {
 				if (isCentered) {
 					if (moveToCorner == null) {
 						moveToCorner = new Parallel();
@@ -32,13 +33,36 @@
 						moveToCorner.addChild(move);
 						
 					}
-
+					if (btnmoveToCorner == null) {
+						btnmoveToCorner = new Parallel();
+						
+						var move1:Move = new Move();
+						move1.xFrom = btn.x;
+						move1.xTo = 20 + textInput.width +10;
+						move1.yFrom = btn.y;
+						move1.yTo = 20;
+						btnmoveToCorner.addChild(move1);
+						
+					}
+					if (btnmoveToCorner == null) {
+						btnmoveToCorner = new Parallel();
+						
+						var move1:Move = new Move();
+						move1.xFrom = btn.x;
+						move1.xTo = 20 + textInput.width +10;
+						move1.yFrom = btn.y;
+						move1.yTo = 20;
+						btnmoveToCorner.addChild(move1);
+						
+					}
+					
 					isCentered = false;
 					moveToCorner.play([textInput]);
+					btnmoveToCorner.play([btn]);
 					(related as Related).tag  = this.textInput.text;
 				}
-				//(related as Related).searchBar = this.textInput;
-				//(related as Related).tag  = this.textInput.text;
+					//(related as Related).searchBar = this.textInput;
+					//(related as Related).tag  = this.textInput.text;
 				else{
 					(related as Related).tag  = this.textInput.text;
 					var i:int = 0;
@@ -79,7 +103,7 @@
 				var i:int = 0;
 				for(i=0;i<9;i++)(this.related as Related).middle.set_visiable(i,true);
 				//for(i = 0; i < 8;i++){
-					//(this.related as Related).set_visible(i,true);
+				//(this.related as Related).set_visible(i,true);
 				//}
 				
 				wait_time.stop();
@@ -91,11 +115,16 @@
 				//this.textInput.horizontalCenter = 0;
 				this.textInput.x = this.width / 2 - this.textInput.width / 2;
 				this.textInput.y = this.height / 2 - this.textInput.height / 2;
+				this.btn.x= this.textInput.x + this.textInput.width +10;
+				this.btn.y= this.textInput.y
+				this.btn.width = this.textInput.width /3;
+				this.btn.height = this.textInput.height;
 			}
 		]]>
 	</fx:Script>
 	
-	<related:Related id="related" verticalCenter="0" horizontalCenter="0" searchBar="{textInput}" />
+	<related:Related id="related" verticalCenter="0" horizontalCenter="0" searchBar="{textInput}" btn="{btn}" />
 	<s:TextInput id="textInput" enter="search(event)"  fontFamily="Arial Black" fontSize="22" />
+	<mx:Button id="btn" click="search(event)" label="Search" />
 	
 </s:Application>
