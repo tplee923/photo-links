@@ -81,6 +81,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.controls.Image;
 			import mx.effects.AnimateProperty;
 			import mx.effects.Fade;
 			import mx.effects.Move;
@@ -90,6 +91,7 @@
 			
 			import org.osmf.events.TimeEvent;
 			
+			import spark.components.BorderContainer;
 			import spark.components.TextInput;
 			
 			private var _clouds:ArrayCollection;
@@ -116,13 +118,21 @@
 					this._flickrService.addEventListener(FlickrResultEvent.TAGS_GET_RELATED, tagsGetRelatedEventHandler);
 					
 					this.cloud0.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud0.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud1.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud1.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud2.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud2.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud3.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud3.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud4.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud4.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud5.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud5.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud6.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud6.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 					this.cloud7.addEventListener(MouseEvent.CLICK, cloudsClickedEventHandler);
+					this.cloud7.addEventListener(MouseEvent.MOUSE_OVER,cloudsOverEventHandler);
 				}
 				
 				this._flickrService.tags.getRelated(this._tag);
@@ -130,6 +140,234 @@
 				//for(i=0;i<9;i++)
 				//	this.middle.set_visiable(i,true);
 			}
+			
+			private var time_count:Timer = new Timer(2000);
+			private var mouse_x:int;
+			private var mouse_y:int;
+			private var num:int;
+			//private var current_x:int;
+			//private var current_y:int;
+			//private var count_m:int = 0;
+			private var cloud_x:related.Cloud;
+			
+			private function cloudsOverEventHandler(event:MouseEvent):void{
+				cloud_x = event.currentTarget as related.Cloud;
+				mouse_x = this.mouseX;
+				mouse_y = this.mouseY;
+				//cloud_x.addEventListener(MouseEvent.MOUSE_MOVE,moveEventHandler);
+				time_count.addEventListener(TimerEvent.TIMER,check_Mouse);
+				time_count.start();
+			}
+			
+			private function check_Mouse(event:TimerEvent):void{
+				var delta_x:int = mouse_x - this.mouseX;
+				var delta_y:int = mouse_y - this.mouseY;
+				if(delta_x < 0) delta_x = - delta_x;
+				if(delta_y < 0) delta_y = - delta_y;
+				if(delta_x > 100 || delta_y > 100){
+					time_count.stop();
+					return;
+				}
+				/*if(delta_x > 100 || delta_y > 100){
+					//time_count.stop();
+					count_m = 0;
+					//Alert.show("here");
+				}*/
+				//else{
+					//count_m++;
+					//if(count_m==3){
+						//time_count.stop();
+						num = (cloud_x._current + 1) % 10; 
+						
+						var imag:Image = cloud_x._images.getItemAt(cloud_x._current) as Image;
+						
+						
+						var zoomMove:Parallel = new Parallel();
+						zoomMove.duration = 600;
+						var move:Move = new Move();
+						move.xFrom = imag.x;
+						move.yFrom = imag.y;
+						move.xTo = imag.x + 100;
+						move.yTo = imag.y;
+						
+						
+						zoomMove.addEventListener(EffectEvent.EFFECT_END,move_Imag);
+						zoomMove.addChild(move);
+						
+						zoomMove.play([imag]);
+						var imag2:Image = cloud_x._images.getItemAt(num) as Image;
+						imag2.depth = current_depth + 2;
+						
+						
+						//(cloud_x._images.getItemAt(num) as Image).visible = true;
+						//(cloud_x._images.getItemAt(num) as Image).depth = 1;
+						//Alert.show((cloud_x._images.getItemAt(num) as Image).source.toString());
+						//time_count.stop();
+						//count_m = 0;
+						//cloud_x.removeEventListener(MouseEvent.MOUSE_MOVE,moveEventHandler);
+					//}
+				//}
+			}
+			
+			private var current_depth:int = -2
+			
+			private function move_Imag(event:EffectEvent):void{
+				
+				
+				var zoomMove:Parallel = new Parallel();
+				var imag:Image = cloud_x._images.getItemAt(cloud_x._current) as Image;
+				
+				var move2:Move = new Move();
+				move2.xFrom = imag.x;
+				move2.yFrom = imag.y;
+				move2.xTo = imag.x - 100;
+				move2.yTo = imag.y;
+				
+				zoomMove.addChild(move2);
+				zoomMove.play([imag]);
+				
+				
+				switch(num){
+					case 0: 
+						cloud_x.b0.depth = current_depth + 3;
+						/*cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 1: 
+						//cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = current_depth + 3;
+						/*cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 2: 
+						//cloud_x.b0.depth = 3;
+						//cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = current_depth + 3;
+						/*cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 3: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;*/
+						cloud_x.b3.depth = current_depth + 3;
+						/*cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 4: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;*/
+						cloud_x.b4.depth = current_depth + 3;
+						/*cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 5: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;*/
+						cloud_x.b5.depth = current_depth + 3;
+						/*cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 6: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;*/
+						cloud_x.b6.depth = current_depth + 3;
+						/*cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;
+						cloud_x.b9.depth = 3;*/
+						break;
+					case 7: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;*/
+						cloud_x.b7.depth = current_depth + 3;
+						//cloud_x.b8.depth = 3;
+						//cloud_x.b9.depth = 3;
+						break;
+					case 8: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;*/
+						cloud_x.b8.depth = current_depth + 3;
+						//cloud_x.b9.depth = 3;
+						break;
+					case 9: 
+						/*cloud_x.b0.depth = 3;
+						cloud_x.b1.depth = 3;
+						cloud_x.b2.depth = 3;
+						cloud_x.b3.depth = 3;
+						cloud_x.b4.depth = 3;
+						cloud_x.b5.depth = 3;
+						cloud_x.b6.depth = 3;
+						cloud_x.b7.depth = 3;
+						cloud_x.b8.depth = 3;*/
+						cloud_x.b9.depth = current_depth + 3;
+						break;
+				}
+				
+				var i:int = 0;
+				for(i=0;i<cloud_x._IMAGE_COUNT;i++){
+					var image_i:Image = cloud_x._images.getItemAt(i) as Image;
+					if(i!=num){
+						image_i.depth = current_depth + 4;
+					}
+				}
+				
+				cloud_x._current = num;
+				current_depth = current_depth + 2;
+			}
+			
+			/*private function moveEventHandler(event:MouseEvent):void{
+				count_m = 0;
+				time_count.start();
+				//current_x = this.mouseX;
+				//current_y = this.mouseY;
+			}*/
 			
 			private var tag_store:String;
 			private var is_changing:Boolean = false;
@@ -252,6 +490,11 @@
 					
 					for (i = 0; i < this._CLOUD_TOTAL; ++i) {
 						(this._clouds.getItemAt(i) as Cloud).visible = false;
+					}
+					
+					for (i = 0; i < this._CLOUD_TOTAL; ++i) {
+						(this._clouds.getItemAt(i) as Cloud)._current = 9;
+						current_depth = -2;
 					}
 					
 					if (tagCount > this._CLOUD_TOTAL) {
