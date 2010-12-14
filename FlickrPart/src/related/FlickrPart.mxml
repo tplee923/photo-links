@@ -18,6 +18,7 @@
 			private var isCentered:Boolean = true;
 			private var moveToCorner:Parallel;
 			private var btnmoveToCorner:Parallel;
+			private var logoMove:Move;
 			//private var tag_temp:String;
 			private var wait_time:Timer = new Timer(5000);
 			public function search(event:Event):void {
@@ -29,7 +30,7 @@
 						move.xFrom = textInput.x;
 						move.xTo = 20;
 						move.yFrom = textInput.y;
-						move.yTo = 20;
+						move.yTo = 70;
 						moveToCorner.addChild(move);
 						
 					}
@@ -40,25 +41,23 @@
 						move1.xFrom = btn.x;
 						move1.xTo = 20 + textInput.width +10;
 						move1.yFrom = btn.y;
-						move1.yTo = 20;
+						move1.yTo = 70;
 						btnmoveToCorner.addChild(move1);
 						
 					}
-					if (btnmoveToCorner == null) {
-						btnmoveToCorner = new Parallel();
+					if (logoMove == null) {
+						logoMove = new Move();
 						
-						var move1:Move = new Move();
-						move1.xFrom = btn.x;
-						move1.xTo = 20 + textInput.width +10;
-						move1.yFrom = btn.y;
-						move1.yTo = 20;
-						btnmoveToCorner.addChild(move1);
-						
+						logoMove.xFrom = logo.x;
+						logoMove.xTo = 20;
+						logoMove.yFrom = logo.y;
+						logoMove.yTo = 20;
 					}
 					
 					isCentered = false;
 					moveToCorner.play([textInput]);
 					btnmoveToCorner.play([btn]);
+					logoMove.play([logo]);
 					(related as Related).tag  = this.textInput.text;
 				}
 					//(related as Related).searchBar = this.textInput;
@@ -119,11 +118,15 @@
 				this.btn.y= this.textInput.y
 				this.btn.width = this.textInput.width /3;
 				this.btn.height = this.textInput.height;
+				
+				logo.x = width/2 - logo.width/2;
+				logo.y = textInput.y - 40;
 			}
 		]]>
 	</fx:Script>
 	
-	<related:Related id="related" verticalCenter="0" horizontalCenter="0" searchBar="{textInput}" btn="{btn}" />
+	<mx:Image id="logo" source="logo.png" />
+	<related:Related id="related" verticalCenter="0" horizontalCenter="0" searchBar="{textInput}" btn="{btn}" logo="{logo}" />
 	<s:TextInput id="textInput" enter="search(event)"  fontFamily="Arial Black" fontSize="22" />
 	<mx:Button id="btn" click="search(event)" label="Search" />
 	
