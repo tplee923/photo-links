@@ -78,9 +78,9 @@
 			private function playWait(event:TimerEvent):void{
 				var i:int = 0;
 				for(i=0;i<9;i++)(this.related as Related).middle.set_visiable(i,true);
-				for(i = 0; i < 8;i++){
-					(this.related as Related).set_visible(i,true);
-				}
+				//for(i = 0; i < 8;i++){
+					//(this.related as Related).set_visible(i,true);
+				//}
 				
 				wait_time.stop();
 				
