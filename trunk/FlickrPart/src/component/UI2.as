@@ -11,6 +11,7 @@ package component{
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Matrix;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
@@ -111,6 +112,16 @@ package component{
 			//this.addElement(button_back);
 			label = new Label();
 			tagLabel=new Label();
+			
+			var textFormat:TextFormat = new TextFormat();
+			textFormat.font = "Arial Black";
+			//textFormat.size = 12;
+			tagLabel.setStyle("fontFamily", "Arial Black");
+			tagLabel.setStyle("fontSize", 22);
+			tagLabel.horizontalCenter = 30;
+			tagLabel.verticalCenter = -275;
+			
+			
 			photos = new ArrayCollection();
 			image0 = new UI3();//new Image();
 			image0.visible = false;
