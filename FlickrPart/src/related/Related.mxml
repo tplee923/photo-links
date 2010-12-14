@@ -88,11 +88,12 @@
 			import mx.effects.Parallel;
 			import mx.effects.Zoom;
 			import mx.events.EffectEvent;
-			
+			import mx.controls.Button;
 			import org.osmf.events.TimeEvent;
 			
 			import spark.components.BorderContainer;
 			import spark.components.TextInput;
+		
 			
 			private var _clouds:ArrayCollection;
 			private var _flickrService:FlickrService;
@@ -101,6 +102,7 @@
 			
 			//public var searchBar:TextInput;
 			public var searchBar:TextInput;
+			public var btn:Button;
 			
 			private var _tag:String;
 			[Bindable]
@@ -603,6 +605,7 @@
 					zoomStatus = false;
 					//searchBar.text = "laskdjflkasdjf";
 					fadeIn.play([searchBar]);
+					fadeIn.play([btn]);
 				}
 				else if(event.type == MouseEvent.ROLL_OVER && !zoomFull.isPlaying && !zoomFull2.isPlaying && !zoomStatus){
 					//zoomFull2.play([this]);
@@ -610,6 +613,7 @@
 					zoomStatus = true;
 					//searchBar.text = "laskdjflkasdjf";
 					fadeOut.play([searchBar]);
+					fadeOut.play([btn]);
 				}
 				
 				// TODO Auto-generated method stub
