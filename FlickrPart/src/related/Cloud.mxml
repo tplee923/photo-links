@@ -154,37 +154,37 @@
 	
 	<!--<s:Label id="testLabel" text="aaaa" x="200" y="200" />-->
 	
-	<s:BorderContainer id="bl" width="{75+4}" height="{this.tagLabel.height+4}" horizontalCenter="0" verticalCenter="45" borderColor="0xffffff">
+	<s:BorderContainer id="bl" width="{75+4}" height="{this.tagLabel.height+4}" horizontalCenter="0" verticalCenter="47" borderColor="0xffffff">
 		<s:Label id="tagLabel" color="#000000" horizontalCenter="0" verticalCenter="0" styleName="myLabel" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b0" width="{this.image0.width+4}" height="{this.image0.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b0" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image0" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b1" width="{this.image1.width+4}" height="{this.image1.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b1" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image1" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b2" width="{this.image2.width+4}" height="{this.image2.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b2" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image2" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b3" width="{this.image3.width+4}" height="{this.image3.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b3" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image3" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b4" width="{this.image4.width+4}" height="{this.image4.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b4" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image4" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b5" width="{this.image5.width+4}" height="{this.image5.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b5" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image5" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b6" width="{this.image6.width+4}" height="{this.image6.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b6" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image6" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b7" width="{this.image7.width+4}" height="{this.image7.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b7" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image7" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b8" width="{this.image8.width+4}" height="{this.image8.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b8" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image id="image8" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
-	<s:BorderContainer id="b9" width="{this.image9.width+4}" height="{this.image9.height+4}" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
+	<s:BorderContainer id="b9" width="79" height="79" horizontalCenter="0" verticalCenter="0" borderColor="0xffffff">
 		<mx:Image  id="image9" horizontalCenter="0" verticalCenter="0" styleName="myImage" />
 	</s:BorderContainer>
 	
