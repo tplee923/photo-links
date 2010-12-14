@@ -81,6 +81,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.controls.Button;
 			import mx.controls.Image;
 			import mx.effects.AnimateProperty;
 			import mx.effects.Fade;
@@ -88,7 +89,7 @@
 			import mx.effects.Parallel;
 			import mx.effects.Zoom;
 			import mx.events.EffectEvent;
-			import mx.controls.Button;
+			
 			import org.osmf.events.TimeEvent;
 			
 			import spark.components.BorderContainer;
@@ -103,6 +104,7 @@
 			//public var searchBar:TextInput;
 			public var searchBar:TextInput;
 			public var btn:Button;
+			public var logo:Image;
 			
 			private var _tag:String;
 			[Bindable]
@@ -604,16 +606,16 @@
 					zoomFull.play([this]);
 					zoomStatus = false;
 					//searchBar.text = "laskdjflkasdjf";
-					fadeIn.play([searchBar]);
-					fadeIn.play([btn]);
+					fadeIn.play([searchBar, btn, logo]);
+					//fadeIn.play([btn]);
 				}
 				else if(event.type == MouseEvent.ROLL_OVER && !zoomFull.isPlaying && !zoomFull2.isPlaying && !zoomStatus){
 					//zoomFull2.play([this]);
 					zoomFull2.play([this]);
 					zoomStatus = true;
 					//searchBar.text = "laskdjflkasdjf";
-					fadeOut.play([searchBar]);
-					fadeOut.play([btn]);
+					fadeOut.play([searchBar, btn, logo]);
+					//fadeOut.play([btn]);
 				}
 				
 				// TODO Auto-generated method stub
